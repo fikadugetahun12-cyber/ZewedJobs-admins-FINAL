@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="dashboard.html" class="logo">Admin<span>Panel</span></a>
+        <div class="nav-links">
+            <a href="dashboard.html" class="active">Dashboard</a>
+            <a href="posts/list.html">Posts</a>
+            <a href="users/admins.html">Users</a>
+            <a href="#">Settings</a>
+        </div>
+        <button class="logout-btn" id="logoutBtn">Logout</button>
+    </nav>
+    
+    <!-- Main Content -->
+    <div class="container">
+        <div class="page-header mt-4">
+            <h1>Welcome, Admin</h1>
+            <p class="text-muted">Manage your website content and settings</p>
+        </div>
+        
+        <div class="grid grid-cols-4 gap-3 mb-4">
+            <div class="stat-card">
+                <div class="stat-icon bg-primary text-white">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Total Visitors</h3>
+                    <div class="number">1,254</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon bg-success text-white">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>New Users</h3>
+                    <div class="number">89</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon bg-info text-white">
+                    <i class="fas fa-newspaper"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Posts Published</h3>
+                    <div class="number">24</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon bg-warning text-dark">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Pending Reviews</h3>
+                    <div class="number">5</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rest of your content using CSS classes -->
+    </div>
+    
+    <script>
+        // Your JavaScript code here
+    </script>
+</body>
+</html>
