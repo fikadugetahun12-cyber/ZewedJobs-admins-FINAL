@@ -1,0 +1,4 @@
+const stats = dataLoader.getDashboardStats();
+console.log('Total posts:', stats.posts.total);
+console.log('Total users:', stats.users.total);
+console.log('Total views:', stats.views.total);
