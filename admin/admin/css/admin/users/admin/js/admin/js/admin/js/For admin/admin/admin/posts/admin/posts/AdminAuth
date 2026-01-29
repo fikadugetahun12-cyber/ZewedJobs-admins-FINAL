@@ -1,0 +1,14 @@
+// Login/Logout
+adminAuth.login(username, password)
+adminAuth.logout()
+adminAuth.isLoggedIn()
+
+// User info
+adminAuth.hasPermission('posts')
+adminAuth.hasRole('admin')
+adminAuth.getUserPermissions()
+adminAuth.getUserRole()
+
+// Session management
+adminAuth.protectRoute()
+adminAuth.setupLogoutButton('logoutBtn')
