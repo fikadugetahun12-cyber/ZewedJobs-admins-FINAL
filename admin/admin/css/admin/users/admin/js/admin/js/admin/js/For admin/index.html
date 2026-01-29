@@ -1,0 +1,23 @@
+<script src="js/admin-auth.js"></script>
+<script>
+// Add login form handler
+document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            const result = await adminAuth.login(username, password);
+            
+            if (result.success) {
+                window.location.href = 'dashboard.html';
+            } else {
+                alert(result.message);
+            }
+        });
+    }
+});
+</script>
