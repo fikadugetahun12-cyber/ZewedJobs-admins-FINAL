@@ -1,0 +1,2123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Users Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        /* Navigation */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .nav-links a:hover {
+            background: #f7fafc;
+            color: #667eea;
+        }
+        
+        .nav-links a.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #667eea;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .logout-btn {
+            padding: 8px 16px;
+            background: #e53e3e;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background: #c53030;
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .page-header {
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .page-header h1 {
+            color: #2d3748;
+            font-size: 2rem;
+        }
+        
+        .create-btn {
+            padding: 12px 24px;
+            background: #48bb78;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+        
+        .create-btn:hover {
+            background: #38a169;
+        }
+        
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .stat-icon.total {
+            background: #e9d8fd;
+            color: #553c9a;
+        }
+        
+        .stat-icon.active {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+        
+        .stat-icon.inactive {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+        
+        .stat-icon.superadmin {
+            background: #bee3f8;
+            color: #2c5282;
+        }
+        
+        .stat-content h3 {
+            color: #718096;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-content .number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        
+        /* Filters and Search */
+        .filters-container {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .search-box {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #a0aec0;
+        }
+        
+        .filter-select {
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            background: white;
+            font-size: 16px;
+        }
+        
+        .filter-btn {
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+        
+        .filter-btn:hover {
+            background: #5a67d8;
+        }
+        
+        .reset-btn {
+            padding: 12px 24px;
+            background: #e2e8f0;
+            color: #4a5568;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+        
+        .reset-btn:hover {
+            background: #cbd5e0;
+        }
+        
+        /* Users Table */
+        .users-table-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .table-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .bulk-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .bulk-select {
+            padding: 8px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+        }
+        
+        .bulk-apply {
+            padding: 8px 16px;
+            background: #718096;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .bulk-apply:hover {
+            background: #4a5568;
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .table th {
+            background: #f7fafc;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: #4a5568;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: middle;
+        }
+        
+        .table tr:hover {
+            background: #f7fafc;
+        }
+        
+        .user-checkbox {
+            width: 40px;
+            text-align: center;
+        }
+        
+        .user-avatar-cell {
+            width: 60px;
+        }
+        
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+            color: white;
+        }
+        
+        .avatar.superadmin {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .avatar.admin {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .avatar.editor {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+        
+        .user-email {
+            font-size: 14px;
+            color: #718096;
+        }
+        
+        .role-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .role-badge.superadmin {
+            background: #e9d8fd;
+            color: #553c9a;
+        }
+        
+        .role-badge.admin {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+        
+        .role-badge.editor {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .status-badge.active {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+        
+        .status-badge.inactive {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+        
+        .status-badge.suspended {
+            background: #fefcbf;
+            color: #744210;
+        }
+        
+        .user-date {
+            font-size: 14px;
+            color: #718096;
+        }
+        
+        .user-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .action-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .edit-btn {
+            background: #4299e1;
+            color: white;
+        }
+        
+        .edit-btn:hover {
+            background: #3182ce;
+        }
+        
+        .delete-btn {
+            background: #fc8181;
+            color: white;
+        }
+        
+        .delete-btn:hover {
+            background: #f56565;
+        }
+        
+        .status-btn {
+            background: #68d391;
+            color: white;
+        }
+        
+        .status-btn:hover {
+            background: #48bb78;
+        }
+        
+        .status-btn.inactive {
+            background: #ecc94b;
+        }
+        
+        .status-btn.inactive:hover {
+            background: #d69e2e;
+        }
+        
+        /* Table Footer */
+        .table-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .pagination {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .page-btn {
+            padding: 8px 12px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .page-btn:hover {
+            background: #f7fafc;
+        }
+        
+        .page-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .items-per-page {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .items-per-page select {
+            padding: 8px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #718096;
+        }
+        
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 1rem;
+            color: #cbd5e0;
+        }
+        
+        /* Activity Log */
+        .activity-log {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .activity-log h3 {
+            color: #2d3748;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+        
+        .activity-list {
+            list-style: none;
+        }
+        
+        .activity-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-content {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .activity-text {
+            color: #2d3748;
+        }
+        
+        .activity-meta {
+            font-size: 14px;
+            color: #718096;
+        }
+        
+        .activity-time {
+            font-size: 12px;
+            color: #a0aec0;
+        }
+        
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h3 {
+            color: #2d3748;
+            font-size: 1.25rem;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #718096;
+        }
+        
+        .modal-body {
+            padding: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2d3748;
+            font-weight: 600;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .password-field {
+            position: relative;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #718096;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .modal-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+        
+        .modal-footer button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .cancel-btn {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+        
+        .cancel-btn:hover {
+            background: #cbd5e0;
+        }
+        
+        .save-btn {
+            background: #48bb78;
+            color: white;
+        }
+        
+        .save-btn:hover {
+            background: #38a169;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .filters-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-box {
+                min-width: auto;
+            }
+            
+            .table-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+            
+            .bulk-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .table-footer {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            margin-bottom: 1rem;
+            color: #718096;
+        }
+        
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Status Messages */
+        .status-message {
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .status-message.success {
+            background: #c6f6d5;
+            color: #22543d;
+            border: 1px solid #9ae6b4;
+            display: block;
+        }
+        
+        .status-message.error {
+            background: #fed7d7;
+            color: #742a2a;
+            border: 1px solid #fc8181;
+            display: block;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="../dashboard.html" class="logo">Admin Panel</a>
+        <div class="nav-links">
+            <a href="../dashboard.html">Dashboard</a>
+            <a href="../posts/list.html">Posts</a>
+            <a href="admins.html" class="active">Users</a>
+            <a href="#">Settings</a>
+        </div>
+        <div class="user-menu">
+            <div class="user-avatar" id="currentUserAvatar">A</div>
+            <button class="logout-btn" id="logoutBtn">Logout</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../dashboard.html">Dashboard</a> &rsaquo;
+            <span>Admin Users</span>
+        </div>
+        
+        <div class="page-header">
+            <h1>Admin Users Management</h1>
+            <button class="create-btn" id="createUserBtn">
+                <i class="fas fa-plus"></i> Add New Admin
+            </button>
+        </div>
+        
+        <div id="statusMessage" class="status-message"></div>
+        
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon total">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Total Admins</h3>
+                    <div class="number" id="totalAdmins">0</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon active">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Active</h3>
+                    <div class="number" id="activeAdmins">0</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon superadmin">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Super Admins</h3>
+                    <div class="number" id="superAdmins">0</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon inactive">
+                    <i class="fas fa-user-slash"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Inactive</h3>
+                    <div class="number" id="inactiveAdmins">0</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Filters -->
+        <div class="filters-container">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search by name or email...">
+            </div>
+            
+            <select class="filter-select" id="roleFilter">
+                <option value="">All Roles</option>
+                <option value="superadmin">Super Admin</option>
+                <option value="admin">Admin</option>
+                <option value="editor">Editor</option>
+            </select>
+            
+            <select class="filter-select" id="statusFilter">
+                <option value="">All Status</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+                <option value="suspended">Suspended</option>
+            </select>
+            
+            <button class="filter-btn" id="applyFiltersBtn">
+                <i class="fas fa-filter"></i> Filter
+            </button>
+            
+            <button class="reset-btn" id="resetFiltersBtn">
+                <i class="fas fa-redo"></i> Reset
+            </button>
+        </div>
+        
+        <!-- Users Table -->
+        <div class="users-table-container">
+            <div class="table-header">
+                <div class="table-title" id="tableTitle">All Admin Users</div>
+                
+                <div class="bulk-actions">
+                    <select class="bulk-select" id="bulkActionSelect">
+                        <option value="">Bulk Actions</option>
+                        <option value="activate">Activate</option>
+                        <option value="deactivate">Deactivate</option>
+                        <option value="delete">Delete</option>
+                    </select>
+                    
+                    <button class="bulk-apply" id="applyBulkActionBtn">Apply</button>
+                </div>
+            </div>
+            
+            <table class="table" id="usersTable">
+                <thead>
+                    <tr>
+                        <th class="user-checkbox">
+                            <input type="checkbox" id="selectAllCheckbox">
+                        </th>
+                        <th class="user-avatar-cell"></th>
+                        <th>User</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Last Login</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="usersTableBody">
+                    <!-- Users will be loaded here -->
+                </tbody>
+            </table>
+            
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <i class="fas fa-users"></i>
+                <h3>No admin users found</h3>
+                <p>Get started by creating your first admin user!</p>
+                <button class="create-btn" id="createEmptyBtn" style="margin-top: 1rem;">
+                    <i class="fas fa-plus"></i> Add Admin User
+                </button>
+            </div>
+            
+            <div class="table-footer">
+                <div class="pagination" id="pagination">
+                    <!-- Pagination will be generated here -->
+                </div>
+                
+                <div class="items-per-page">
+                    <span>Show</span>
+                    <select id="itemsPerPageSelect">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                    </select>
+                    <span>items per page</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Activity Log -->
+        <div class="activity-log">
+            <h3>Recent Admin Activity</h3>
+            <ul class="activity-list" id="activityList">
+                <!-- Activity logs will be loaded here -->
+            </ul>
+        </div>
+    </div>
+
+    <!-- Create/Edit User Modal -->
+    <div class="modal" id="userModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Add New Admin</h3>
+                <button class="close-btn" id="closeModalBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="userForm">
+                    <input type="hidden" id="userId">
+                    
+                    <div class="form-group">
+                        <label for="userName">Full Name *</label>
+                        <input type="text" id="userName" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="userEmail">Email Address *</label>
+                            <input type="email" id="userEmail" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="userUsername">Username *</label>
+                            <input type="text" id="userUsername" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="userRole">Role *</label>
+                            <select id="userRole" required>
+                                <option value="">Select Role</option>
+                                <option value="superadmin">Super Admin</option>
+                                <option value="admin">Admin</option>
+                                <option value="editor">Editor</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="userStatus">Status</label>
+                            <select id="userStatus">
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                                <option value="suspended">Suspended</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="userPhone">Phone Number</label>
+                        <input type="tel" id="userPhone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="userPermissions">Permissions</label>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+                            <label style="display: flex; align-items: center; gap: 5px;">
+                                <input type="checkbox" name="permissions" value="posts"> Manage Posts
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 5px;">
+                                <input type="checkbox" name="permissions" value="pages"> Manage Pages
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 5px;">
+                                <input type="checkbox" name="permissions" value="media"> Manage Media
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 5px;">
+                                <input type="checkbox" name="permissions" value="users"> Manage Users
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 5px;">
+                                <input type="checkbox" name="permissions" value="settings"> Manage Settings
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 5px;">
+                                <input type="checkbox" name="permissions" value="analytics"> View Analytics
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" id="passwordGroup">
+                        <label for="userPassword" id="passwordLabel">Password *</label>
+                        <div class="password-field">
+                            <input type="password" id="userPassword" required>
+                            <button type="button" class="toggle-password" id="togglePassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <small style="color: #718096; font-size: 14px; margin-top: 5px; display: block;">
+                            Password must be at least 8 characters long
+                        </small>
+                    </div>
+                    
+                    <div class="form-group" id="confirmPasswordGroup">
+                        <label for="confirmPassword">Confirm Password *</label>
+                        <div class="password-field">
+                            <input type="password" id="confirmPassword" required>
+                            <button type="button" class="toggle-password" id="toggleConfirmPassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="cancel-btn" id="cancelModalBtn">Cancel</button>
+                <button type="button" class="save-btn" id="saveUserBtn">Save User</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Delete User</h3>
+                <button class="close-btn" id="closeDeleteModalBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="deleteModalMessage">Are you sure you want to delete this user? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="cancel-btn" id="cancelDeleteBtn">Cancel</button>
+                <button type="button" class="save-btn" id="confirmDeleteBtn" style="background: #e53e3e;">Delete User</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentPage = 1;
+        let itemsPerPage = 10;
+        let currentFilter = {};
+        let usersData = [];
+        let selectedUsers = [];
+        let userToDelete = null;
+        let currentUserId = null;
+        let isEditMode = false;
+        
+        // Check if user is logged in
+        window.onload = function() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            const loginTime = localStorage.getItem('loginTime');
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            
+            // Check if 30 minutes have passed (session timeout)
+            if (!isLoggedIn || (loginTime && (new Date().getTime() - loginTime > 30 * 60 * 1000))) {
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('loginTime');
+                localStorage.removeItem('currentUser');
+                window.location.href = '../index.html';
+                return;
+            }
+            
+            // Set current user avatar
+            if (currentUser && currentUser.name) {
+                document.getElementById('currentUserAvatar').textContent = currentUser.name.charAt(0).toUpperCase();
+            }
+            
+            // Initialize admin users in localStorage if not exists
+            if (!localStorage.getItem('adminUsers')) {
+                // Create sample admin users (including the current user)
+                const sampleUsers = [
+                    {
+                        id: '1',
+                        name: 'Super Admin',
+                        email: 'superadmin@example.com',
+                        username: 'superadmin',
+                        password: 'admin123', // In production, this should be hashed
+                        role: 'superadmin',
+                        status: 'active',
+                        phone: '+1234567890',
+                        permissions: ['posts', 'pages', 'media', 'users', 'settings', 'analytics'],
+                        avatarColor: 'superadmin',
+                        lastLogin: new Date().toISOString(),
+                        createdAt: '2024-01-01T10:00:00Z',
+                        updatedAt: '2024-03-20T10:00:00Z'
+                    },
+                    {
+                        id: '2',
+                        name: 'Admin User',
+                        email: 'admin@example.com',
+                        username: 'admin',
+                        password: 'admin123',
+                        role: 'admin',
+                        status: 'active',
+                        phone: '+1234567891',
+                        permissions: ['posts', 'pages', 'media'],
+                        avatarColor: 'admin',
+                        lastLogin: new Date(Date.now() - 86400000).toISOString(), // Yesterday
+                        createdAt: '2024-02-01T10:00:00Z',
+                        updatedAt: '2024-03-19T10:00:00Z'
+                    },
+                    {
+                        id: '3',
+                        name: 'Content Editor',
+                        email: 'editor@example.com',
+                        username: 'editor',
+                        password: 'editor123',
+                        role: 'editor',
+                        status: 'active',
+                        phone: '+1234567892',
+                        permissions: ['posts', 'media'],
+                        avatarColor: 'editor',
+                        lastLogin: new Date(Date.now() - 172800000).toISOString(), // 2 days ago
+                        createdAt: '2024-02-15T10:00:00Z',
+                        updatedAt: '2024-03-18T10:00:00Z'
+                    },
+                    {
+                        id: '4',
+                        name: 'Inactive Admin',
+                        email: 'inactive@example.com',
+                        username: 'inactive',
+                        password: 'inactive123',
+                        role: 'admin',
+                        status: 'inactive',
+                        phone: '+1234567893',
+                        permissions: ['posts'],
+                        avatarColor: 'admin',
+                        lastLogin: new Date(Date.now() - 2592000000).toISOString(), // 30 days ago
+                        createdAt: '2024-03-01T10:00:00Z',
+                        updatedAt: '2024-03-01T10:00:00Z'
+                    }
+                ];
+                
+                localStorage.setItem('adminUsers', JSON.stringify(sampleUsers));
+            }
+            
+            // Initialize activity logs if not exists
+            if (!localStorage.getItem('adminActivityLogs')) {
+                const sampleLogs = [
+                    {
+                        id: '1',
+                        userId: '1',
+                        userName: 'Super Admin',
+                        action: 'User Management',
+                        description: 'Added new admin user "Content Editor"',
+                        timestamp: new Date().toISOString()
+                    },
+                    {
+                        id: '2',
+                        userId: '2',
+                        userName: 'Admin User',
+                        action: 'Post Management',
+                        description: 'Published post "Welcome to Our New Website"',
+                        timestamp: new Date(Date.now() - 3600000).toISOString()
+                    },
+                    {
+                        id: '3',
+                        userId: '1',
+                        userName: 'Super Admin',
+                        action: 'System',
+                        description: 'Updated system settings',
+                        timestamp: new Date(Date.now() - 7200000).toISOString()
+                    },
+                    {
+                        id: '4',
+                        userId: '3',
+                        userName: 'Content Editor',
+                        action: 'Post Management',
+                        description: 'Created draft for upcoming event announcement',
+                        timestamp: new Date(Date.now() - 10800000).toISOString()
+                    }
+                ];
+                
+                localStorage.setItem('adminActivityLogs', JSON.stringify(sampleLogs));
+            }
+            
+            // Load users data
+            loadUsers();
+            loadActivityLogs();
+            setupEventListeners();
+        };
+        
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('loginTime');
+            localStorage.removeItem('currentUser');
+            window.location.href = '../index.html';
+        });
+        
+        // Load users from localStorage
+        function loadUsers() {
+            usersData = JSON.parse(localStorage.getItem('adminUsers')) || [];
+            updateStats();
+            renderUsersTable();
+        }
+        
+        // Update statistics
+        function updateStats() {
+            const total = usersData.length;
+            const active = usersData.filter(user => user.status === 'active').length;
+            const superAdmins = usersData.filter(user => user.role === 'superadmin').length;
+            const inactive = usersData.filter(user => user.status === 'inactive' || user.status === 'suspended').length;
+            
+            document.getElementById('totalAdmins').textContent = total;
+            document.getElementById('activeAdmins').textContent = active;
+            document.getElementById('superAdmins').textContent = superAdmins;
+            document.getElementById('inactiveAdmins').textContent = inactive;
+        }
+        
+        // Render users table
+        function renderUsersTable() {
+            const tableBody = document.getElementById('usersTableBody');
+            const emptyState = document.getElementById('emptyState');
+            
+            // Apply filters
+            let filteredUsers = [...usersData];
+            
+            if (currentFilter.search) {
+                const searchTerm = currentFilter.search.toLowerCase();
+                filteredUsers = filteredUsers.filter(user => 
+                    user.name.toLowerCase().includes(searchTerm) ||
+                    user.email.toLowerCase().includes(searchTerm) ||
+                    user.username.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            if (currentFilter.role) {
+                filteredUsers = filteredUsers.filter(user => user.role === currentFilter.role);
+            }
+            
+            if (currentFilter.status) {
+                filteredUsers = filteredUsers.filter(user => user.status === currentFilter.status);
+            }
+            
+            // Update table title
+            document.getElementById('tableTitle').textContent = 
+                `Admin Users (${filteredUsers.length} users)`;
+            
+            // Check if empty
+            if (filteredUsers.length === 0) {
+                tableBody.innerHTML = '';
+                emptyState.style.display = 'block';
+                document.getElementById('pagination').innerHTML = '';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            
+            // Calculate pagination
+            const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const paginatedUsers = filteredUsers.slice(startIndex, endIndex);
+            
+            // Clear table
+            tableBody.innerHTML = '';
+            
+            // Add rows
+            paginatedUsers.forEach(user => {
+                const row = document.createElement('tr');
+                const isSelected = selectedUsers.includes(user.id);
+                
+                // Format date
+                const lastLogin = new Date(user.lastLogin);
+                const lastLoginString = lastLogin.toLocaleDateString() + ' ' + lastLogin.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                
+                // Get initials for avatar
+                const initials = user.name.split(' ').map(n => n[0]).join('').toUpperCase();
+                
+                row.innerHTML = `
+                    <td class="user-checkbox">
+                        <input type="checkbox" class="user-checkbox-input" value="${user.id}" ${isSelected ? 'checked' : ''}>
+                    </td>
+                    <td class="user-avatar-cell">
+                        <div class="avatar ${user.avatarColor || 'admin'}" title="${user.name}">
+                            ${initials.substring(0, 2)}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="user-info">
+                            <div class="user-name">${user.name}</div>
+                            <div class="user-email">${user.email}</div>
+                            <small style="color: #a0aec0;">@${user.username}</small>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="role-badge ${user.role}">${user.role}</span>
+                    </td>
+                    <td>
+                        <span class="status-badge ${user.status}">${user.status}</span>
+                    </td>
+                    <td>
+                        <div class="user-date">${lastLoginString}</div>
+                    </td>
+                    <td>
+                        <div class="user-actions">
+                            <button class="action-btn edit-btn" data-id="${user.id}" title="Edit User">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-btn status-btn ${user.status === 'active' ? 'inactive' : ''}" 
+                                    data-id="${user.id}" data-status="${user.status}"
+                                    title="${user.status === 'active' ? 'Deactivate' : 'Activate'}">
+                                <i class="fas ${user.status === 'active' ? 'fa-user-slash' : 'fa-user-check'}"></i>
+                            </button>
+                            <button class="action-btn delete-btn" data-id="${user.id}" title="Delete User">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+            
+            // Update pagination
+            renderPagination(totalPages);
+            
+            // Update checkbox state
+            updateSelectAllCheckbox();
+        }
+        
+        // Render pagination
+        function renderPagination(totalPages) {
+            const paginationEl = document.getElementById('pagination');
+            
+            if (totalPages <= 1) {
+                paginationEl.innerHTML = '';
+                return;
+            }
+            
+            let paginationHTML = '';
+            
+            // Previous button
+            paginationHTML += `
+                <button class="page-btn ${currentPage === 1 ? 'disabled' : ''}" 
+                        id="prevPageBtn" ${currentPage === 1 ? 'disabled' : ''}>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            `;
+            
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+                    paginationHTML += `
+                        <button class="page-btn ${currentPage === i ? 'active' : ''}" 
+                                data-page="${i}">
+                            ${i}
+                        </button>
+                    `;
+                } else if (i === currentPage - 3 || i === currentPage + 3) {
+                    paginationHTML += `<span>...</span>`;
+                }
+            }
+            
+            // Next button
+            paginationHTML += `
+                <button class="page-btn ${currentPage === totalPages ? 'disabled' : ''}" 
+                        id="nextPageBtn" ${currentPage === totalPages ? 'disabled' : ''}>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            `;
+            
+            paginationEl.innerHTML = paginationHTML;
+        }
+        
+        // Load activity logs
+        function loadActivityLogs() {
+            const activityLogs = JSON.parse(localStorage.getItem('adminActivityLogs')) || [];
+            const activityList = document.getElementById('activityList');
+            
+            // Clear list
+            activityList.innerHTML = '';
+            
+            // Sort by timestamp (newest first) and take first 5
+            const recentLogs = activityLogs
+                .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+                .slice(0, 5);
+            
+            // Add activity items
+            recentLogs.forEach(log => {
+                const timeAgo = getTimeAgo(new Date(log.timestamp));
+                
+                const li = document.createElement('li');
+                li.className = 'activity-item';
+                li.innerHTML = `
+                    <div class="activity-content">
+                        <div class="activity-text">
+                            <strong>${log.userName}</strong> ${log.description}
+                        </div>
+                        <div class="activity-meta">
+                            ${log.action}
+                        </div>
+                    </div>
+                    <div class="activity-time">
+                        ${timeAgo}
+                    </div>
+                `;
+                
+                activityList.appendChild(li);
+            });
+        }
+        
+        // Calculate time ago
+        function getTimeAgo(date) {
+            const now = new Date();
+            const diffInSeconds = Math.floor((now - date) / 1000);
+            
+            if (diffInSeconds < 60) {
+                return 'Just now';
+            } else if (diffInSeconds < 3600) {
+                const minutes = Math.floor(diffInSeconds / 60);
+                return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+            } else if (diffInSeconds < 86400) {
+                const hours = Math.floor(diffInSeconds / 3600);
+                return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+            } else if (diffInSeconds < 2592000) {
+                const days = Math.floor(diffInSeconds / 86400);
+                return `${days} day${days > 1 ? 's' : ''} ago`;
+            } else {
+                return date.toLocaleDateString();
+            }
+        }
+        
+        // Setup event listeners
+        function setupEventListeners() {
+            // Search input
+            document.getElementById('searchInput').addEventListener('input', function(e) {
+                currentFilter.search = e.target.value;
+                currentPage = 1;
+                renderUsersTable();
+            });
+            
+            // Role filter
+            document.getElementById('roleFilter').addEventListener('change', function(e) {
+                currentFilter.role = e.target.value || null;
+                currentPage = 1;
+                renderUsersTable();
+            });
+            
+            // Status filter
+            document.getElementById('statusFilter').addEventListener('change', function(e) {
+                currentFilter.status = e.target.value || null;
+                currentPage = 1;
+                renderUsersTable();
+            });
+            
+            // Apply filters button
+            document.getElementById('applyFiltersBtn').addEventListener('click', function() {
+                renderUsersTable();
+            });
+            
+            // Reset filters button
+            document.getElementById('resetFiltersBtn').addEventListener('click', function() {
+                document.getElementById('searchInput').value = '';
+                document.getElementById('roleFilter').value = '';
+                document.getElementById('statusFilter').value = '';
+                
+                currentFilter = {};
+                currentPage = 1;
+                renderUsersTable();
+            });
+            
+            // Items per page
+            document.getElementById('itemsPerPageSelect').addEventListener('change', function(e) {
+                itemsPerPage = parseInt(e.target.value);
+                currentPage = 1;
+                renderUsersTable();
+            });
+            
+            // Create user button
+            document.getElementById('createUserBtn').addEventListener('click', function() {
+                openUserModal();
+            });
+            
+            document.getElementById('createEmptyBtn').addEventListener('click', function() {
+                openUserModal();
+            });
+            
+            // Modal buttons
+            document.getElementById('closeModalBtn').addEventListener('click', closeUserModal);
+            document.getElementById('cancelModalBtn').addEventListener('click', closeUserModal);
+            
+            // Toggle password visibility
+            document.getElementById('togglePassword').addEventListener('click', function() {
+                const passwordInput = document.getElementById('userPassword');
+                const icon = this.querySelector('i');
+                
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    icon.className = 'fas fa-eye-slash';
+                } else {
+                    passwordInput.type = 'password';
+                    icon.className = 'fas fa-eye';
+                }
+            });
+            
+            document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
+                const confirmInput = document.getElementById('confirmPassword');
+                const icon = this.querySelector('i');
+                
+                if (confirmInput.type === 'password') {
+                    confirmInput.type = 'text';
+                    icon.className = 'fas fa-eye-slash';
+                } else {
+                    confirmInput.type = 'password';
+                    icon.className = 'fas fa-eye';
+                }
+            });
+            
+            // Save user button
+            document.getElementById('saveUserBtn').addEventListener('click', saveUser);
+            
+            // Select all checkbox
+            document.getElementById('selectAllCheckbox').addEventListener('change', function(e) {
+                const checkboxes = document.querySelectorAll('.user-checkbox-input');
+                const isChecked = e.target.checked;
+                
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = isChecked;
+                });
+                
+                updateSelectedUsers();
+            });
+            
+            // Bulk action select
+            document.getElementById('applyBulkActionBtn').addEventListener('click', function() {
+                const action = document.getElementById('bulkActionSelect').value;
+                
+                if (!action) {
+                    showStatus('Please select a bulk action', 'error');
+                    return;
+                }
+                
+                if (selectedUsers.length === 0) {
+                    showStatus('Please select at least one user', 'error');
+                    return;
+                }
+                
+                applyBulkAction(action);
+            });
+        }
+        
+        // Open user modal
+        function openUserModal(userId = null) {
+            const modal = document.getElementById('userModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const passwordGroup = document.getElementById('passwordGroup');
+            const confirmPasswordGroup = document.getElementById('confirmPasswordGroup');
+            const passwordLabel = document.getElementById('passwordLabel');
+            
+            // Reset form
+            document.getElementById('userForm').reset();
+            document.getElementById('userId').value = '';
+            
+            // Reset checkboxes
+            document.querySelectorAll('input[name="permissions"]').forEach(cb => {
+                cb.checked = false;
+            });
+            
+            if (userId) {
+                // Edit mode
+                isEditMode = true;
+                currentUserId = userId;
+                modalTitle.textContent = 'Edit Admin User';
+                
+                // Load user data
+                const user = usersData.find(u => u.id === userId);
+                if (user) {
+                    document.getElementById('userId').value = user.id;
+                    document.getElementById('userName').value = user.name;
+                    document.getElementById('userEmail').value = user.email;
+                    document.getElementById('userUsername').value = user.username;
+                    document.getElementById('userRole').value = user.role;
+                    document.getElementById('userStatus').value = user.status;
+                    document.getElementById('userPhone').value = user.phone || '';
+                    
+                    // Set permissions
+                    if (user.permissions) {
+                        user.permissions.forEach(permission => {
+                            const checkbox = document.querySelector(`input[name="permissions"][value="${permission}"]`);
+                            if (checkbox) {
+                                checkbox.checked = true;
+                            }
+                        });
+                    }
+                    
+                    // Change password fields
+                    passwordLabel.textContent = 'New Password (leave blank to keep current)';
+                    passwordGroup.querySelector('input').removeAttribute('required');
+                    confirmPasswordGroup.style.display = 'none';
+                }
+            } else {
+                // Create mode
+                isEditMode = false;
+                currentUserId = null;
+                modalTitle.textContent = 'Add New Admin';
+                
+                // Reset password fields
+                passwordLabel.textContent = 'Password *';
+                passwordGroup.querySelector('input').setAttribute('required', '');
+                confirmPasswordGroup.style.display = 'block';
+            }
+            
+            // Show modal
+            modal.style.display = 'flex';
+        }
+        
+        // Close user modal
+        function closeUserModal() {
+            document.getElementById('userModal').style.display = 'none';
+            isEditMode = false;
+            currentUserId = null;
+        }
+        
+        // Show status message
+        function showStatus(message, type) {
+            const statusEl = document.getElementById('statusMessage');
+            statusEl.textContent = message;
+            statusEl.className = `status-message ${type}`;
+            statusEl.style.display = 'block';
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                statusEl.style.display = 'none';
+            }, 5000);
+        }
+        
+        // Save user
+        function saveUser() {
+            // Get form values
+            const id = document.getElementById('userId').value;
+            const name = document.getElementById('userName').value.trim();
+            const email = document.getElementById('userEmail').value.trim();
+            const username = document.getElementById('userUsername').value.trim();
+            const role = document.getElementById('userRole').value;
+            const status = document.getElementById('userStatus').value;
+            const phone = document.getElementById('userPhone').value.trim();
+            const password = document.getElementById('userPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Get permissions
+            const permissions = [];
+            document.querySelectorAll('input[name="permissions"]:checked').forEach(cb => {
+                permissions.push(cb.value);
+            });
+            
+            // Validation
+            if (!name || !email || !username || !role) {
+                showStatus('Please fill in all required fields', 'error');
+                return;
+            }
+            
+            if (!isEditMode && (!password || password.length < 8)) {
+                showStatus('Password must be at least 8 characters long', 'error');
+                return;
+            }
+            
+            if (!isEditMode && password !== confirmPassword) {
+                showStatus('Passwords do not match', 'error');
+                return;
+            }
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showStatus('Please enter a valid email address', 'error');
+                return;
+            }
+            
+            // Check for duplicate email or username
+            const existingUsers = JSON.parse(localStorage.getItem('adminUsers')) || [];
+            const duplicateEmail = existingUsers.find(user => 
+                user.email.toLowerCase() === email.toLowerCase() && user.id !== id
+            );
+            
+            const duplicateUsername = existingUsers.find(user => 
+                user.username.toLowerCase() === username.toLowerCase() && user.id !== id
+            );
+            
+            if (duplicateEmail) {
+                showStatus('Email address already exists', 'error');
+                return;
+            }
+            
+            if (duplicateUsername) {
+                showStatus('Username already exists', 'error');
+                return;
+            }
+            
+            // Create user object
+            const userData = {
+                id: id || generateId(),
+                name,
+                email,
+                username,
+                role,
+                status,
+                phone: phone || '',
+                permissions,
+                avatarColor: role,
+                lastLogin: isEditMode ? existingUsers.find(u => u.id === id)?.lastLogin : new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            };
+            
+            // Add password if creating new user or changing password
+            if (!isEditMode || password) {
+                userData.password = password; // In production, hash this password
+            } else if (isEditMode) {
+                // Keep existing password
+                const existingUser = existingUsers.find(u => u.id === id);
+                if (existingUser) {
+                    userData.password = existingUser.password;
+                }
+            }
+            
+            // Add createdAt if new user
+            if (!isEditMode) {
+                userData.createdAt = new Date().toISOString();
+            } else {
+                userData.createdAt = existingUsers.find(u => u.id === id)?.createdAt || new Date().toISOString();
+            }
+            
+            // Save to localStorage
+            let updatedUsers;
+            if (isEditMode) {
+                updatedUsers = existingUsers.map(user => user.id === id ? userData : user);
+            } else {
+                updatedUsers = [...existingUsers, userData];
+            }
+            
+            localStorage.setItem('adminUsers', JSON.stringify(updatedUsers));
+            
+            // Add activity log
+            addActivityLog(
+                'User Management',
+                `${isEditMode ? 'Updated' : 'Added'} admin user "${name}"`
+            );
+            
+            // Show success message
+            showStatus(`User ${isEditMode ? 'updated' : 'created'} successfully!`, 'success');
+            
+            // Close modal
+            closeUserModal();
+            
+            // Reload users
+            loadUsers();
+        }
+        
+        // Generate unique ID
+        function generateId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2);
+        }
+        
+        // Add activity log
+        function addActivityLog(action, description) {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser')) || { id: '1', name: 'Super Admin' };
+            const activityLogs = JSON.parse(localStorage.getItem('adminActivityLogs')) || [];
+            
+            const newLog = {
+                id: generateId(),
+                userId: currentUser.id,
+                userName: currentUser.name,
+                action,
+                description,
+                timestamp: new Date().toISOString()
+            };
+            
+            activityLogs.unshift(newLog);
+            localStorage.setItem('adminActivityLogs', JSON.stringify(activityLogs));
+            
+            // Reload activity logs
+            loadActivityLogs();
+        }
+        
+        // Update selected users array
+        function updateSelectedUsers() {
+            const checkboxes = document.querySelectorAll('.user-checkbox-input:checked');
+            selectedUsers = Array.from(checkboxes).map(checkbox => checkbox.value);
+            
+            // Update bulk action button text
+            if (selectedUsers.length > 0) {
+                document.getElementById('applyBulkActionBtn').textContent = `Apply (${selectedUsers.length})`;
+            } else {
+                document.getElementById('applyBulkActionBtn').textContent = 'Apply';
+            }
+        }
+        
+        // Update select all checkbox state
+        function updateSelectAllCheckbox() {
+            const checkboxes = document.querySelectorAll('.user-checkbox-input');
+            const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+            
+            if (checkboxes.length === 0) {
+                selectAllCheckbox.checked = false;
+                selectAllCheckbox.indeterminate = false;
+                return;
+            }
+            
+            const checkedCount = document.querySelectorAll('.user-checkbox-input:checked').length;
+            
+            if (checkedCount === 0) {
+                selectAllCheckbox.checked = false;
+                selectAllCheckbox.indeterminate = false;
+            } else if (checkedCount === checkboxes.length) {
+                selectAllCheckbox.checked = true;
+                selectAllCheckbox.indeterminate = false;
+            } else {
+                selectAllCheckbox.checked = false;
+                selectAllCheckbox.indeterminate = true;
+            }
+            
+            // Add event listeners to individual checkboxes
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    updateSelectedUsers();
+                    updateSelectAllCheckbox();
+                });
+            });
+            
+            // Add event listeners to action buttons
+            document.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const userId = this.getAttribute('data-id');
+                    openUserModal(userId);
+                });
+            });
+            
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const userId = this.getAttribute('data-id');
+                    showDeleteModal(userId);
+                });
+            });
+            
+            document.querySelectorAll('.status-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const userId = this.getAttribute('data-id');
+                    const currentStatus = this.getAttribute('data-status');
+                    toggleUserStatus(userId, currentStatus);
+                });
+            });
+            
+            // Add event listeners to pagination buttons
+            document.querySelectorAll('.page-btn[data-page]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    currentPage = parseInt(this.getAttribute('data-page'));
+                    renderUsersTable();
+                });
+            });
+            
+            document.getElementById('prevPageBtn')?.addEventListener('click', function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderUsersTable();
+                }
+            });
+            
+            document.getElementById('nextPageBtn')?.addEventListener('click', function() {
+                const totalPages = Math.ceil(usersData.length / itemsPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderUsersTable();
+                }
+            });
+            
+            // Delete modal event listeners
+            document.getElementById('closeDeleteModalBtn').addEventListener('click', hideDeleteModal);
+            document.getElementById('cancelDeleteBtn').addEventListener('click', hideDeleteModal);
+            document.getElementById('confirmDeleteBtn').addEventListener('click', confirmDeleteUser);
+            
+            // Close modal when clicking outside
+            document.getElementById('userModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeUserModal();
+                }
+            });
+            
+            document.getElementById('deleteModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    hideDeleteModal();
+                }
+            });
+        }
+        
+        // Apply bulk action
+        function applyBulkAction(action) {
+            if (selectedUsers.length === 0) return;
+            
+            const users = JSON.parse(localStorage.getItem('adminUsers')) || [];
+            let updatedUsers = [...users];
+            
+            selectedUsers.forEach(userId => {
+                const userIndex = updatedUsers.findIndex(u => u.id === userId);
+                
+                if (userIndex !== -1) {
+                    if (action === 'delete') {
+                        // Don't allow deleting yourself
+                        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                        if (currentUser && updatedUsers[userIndex].id === currentUser.id) {
+                            showStatus('You cannot delete your own account', 'error');
+                            return;
+                        }
+                        updatedUsers.splice(userIndex, 1);
+                    } else if (action === 'activate') {
+                        updatedUsers[userIndex].status = 'active';
+                        updatedUsers[userIndex].updatedAt = new Date().toISOString();
+                    } else if (action === 'deactivate') {
+                        // Don't allow deactivating yourself
+                        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                        if (currentUser && updatedUsers[userIndex].id === currentUser.id) {
+                            showStatus('You cannot deactivate your own account', 'error');
+                            return;
+                        }
+                        updatedUsers[userIndex].status = 'inactive';
+                        updatedUsers[userIndex].updatedAt = new Date().toISOString();
+                    }
+                }
+            });
+            
+            localStorage.setItem('adminUsers', JSON.stringify(updatedUsers));
+            
+            // Add activity log
+            addActivityLog(
+                'User Management',
+                `${action === 'delete' ? 'Deleted' : action === 'activate' ? 'Activated' : 'Deactivated'} ${selectedUsers.length} user(s)`
+            );
+            
+            // Reset selection
+            selectedUsers = [];
+            document.getElementById('bulkActionSelect').value = '';
+            document.getElementById('applyBulkActionBtn').textContent = 'Apply';
+            document.getElementById('selectAllCheckbox').checked = false;
+            document.getElementById('selectAllCheckbox').indeterminate = false;
+            
+            // Reload users
+            loadUsers();
+            
+            // Show success message
+            showStatus(`${selectedUsers.length} user(s) ${action}ed successfully!`, 'success');
+        }
+        
+        // Toggle user status
+        function toggleUserStatus(userId, currentStatus) {
+            const users = JSON.parse(localStorage.getItem('adminUsers')) || [];
+            const userIndex = users.findIndex(u => u.id === userId);
+            
+            if (userIndex === -1) return;
+            
+            // Don't allow changing your own status
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser && users[userIndex].id === currentUser.id) {
+                showStatus('You cannot change your own account status', 'error');
+                return;
+            }
+            
+            const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
+            users[userIndex].status = newStatus;
+            users[userIndex].updatedAt = new Date().toISOString();
+            
+            localStorage.setItem('adminUsers', JSON.stringify(users));
+            
+            // Add activity log
+            addActivityLog(
+                'User Management',
+                `${newStatus === 'active' ? 'Activated' : 'Deactivated'} user "${users[userIndex].name}"`
+            );
+            
+            // Reload users
+            loadUsers();
+            
+            showStatus(`User ${newStatus === 'active' ? 'activated' : 'deactivated'} successfully!`, 'success');
+        }
+        
+        // Show delete confirmation modal
+        function showDeleteModal(userId) {
+            userToDelete = userId;
+            const user = usersData.find(u => u.id === userId);
+            
+            if (user) {
+                // Don't allow deleting yourself
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                if (currentUser && user.id === currentUser.id) {
+                    showStatus('You cannot delete your own account', 'error');
+                    return;
+                }
+                
+                document.getElementById('deleteModalMessage').textContent = 
+                    `Are you sure you want to delete "${user.name}"? This action cannot be undone.`;
+            }
+            
+            document.getElementById('deleteModal').style.display = 'flex';
+        }
+        
+        // Hide delete modal
+        function hideDeleteModal() {
+            document.getElementById('deleteModal').style.display = 'none';
+            userToDelete = null;
+        }
+        
+        // Confirm and delete user
+        function confirmDeleteUser() {
+            if (userToDelete) {
+                const users = JSON.parse(localStorage.getItem('adminUsers')) || [];
+                const userToDeleteData = users.find(u => u.id === userToDelete);
+                
+                if (userToDeleteData) {
+                    // Don't allow deleting yourself
+                    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                    if (currentUser && userToDeleteData.id === currentUser.id) {
+                        showStatus('You cannot delete your own account', 'error');
+                        hideDeleteModal();
+                        return;
+                    }
+                    
+                    const updatedUsers = users.filter(u => u.id !== userToDelete);
+                    localStorage.setItem('adminUsers', JSON.stringify(updatedUsers));
+                    
+                    // Add activity log
+                    addActivityLog(
+                        'User Management',
+                        `Deleted user "${userToDeleteData.name}"`
+                    );
+                    
+                    loadUsers();
+                    showStatus('User deleted successfully!', 'success');
+                }
+                
+                hideDeleteModal();
+            }
+        }
+    </script>
+</body>
+</html>
