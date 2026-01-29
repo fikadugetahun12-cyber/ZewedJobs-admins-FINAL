@@ -1,0 +1,567 @@
+{
+  "users": [
+    {
+      "id": "user_001",
+      "username": "superadmin",
+      "email": "superadmin@companyname.com",
+      "password": "admin123",
+      "name": "Super Admin",
+      "firstName": "Super",
+      "lastName": "Admin",
+      "role": "superadmin",
+      "status": "active",
+      "avatar": "SA",
+      "avatarColor": "superadmin",
+      "phone": "+1 (555) 123-4567",
+      "department": "Administration",
+      "position": "Chief Administrator",
+      "permissions": [
+        "posts",
+        "pages",
+        "media",
+        "users",
+        "settings",
+        "analytics",
+        "themes",
+        "plugins",
+        "backup",
+        "security"
+      ],
+      "lastLogin": "2024-03-20T14:25:00Z",
+      "lastLoginIp": "192.168.1.100",
+      "failedLoginAttempts": 0,
+      "accountLocked": false,
+      "twoFactorEnabled": false,
+      "emailVerified": true,
+      "phoneVerified": true,
+      "createdAt": "2024-01-01T09:00:00Z",
+      "updatedAt": "2024-03-20T14:25:00Z",
+      "createdBy": "system",
+      "notes": "Primary administrator with full system access",
+      "preferences": {
+        "theme": "light",
+        "language": "en",
+        "timezone": "America/New_York",
+        "dateFormat": "MM/DD/YYYY",
+        "timeFormat": "12h",
+        "notifications": {
+          "email": true,
+          "push": true,
+          "sms": false
+        },
+        "dashboard": {
+          "defaultView": "overview",
+          "refreshInterval": 300,
+          "showCharts": true
+        }
+      },
+      "activity": {
+        "totalLogins": 145,
+        "lastActivity": "2024-03-20T14:25:00Z",
+        "postsCreated": 5,
+        "postsEdited": 12,
+        "usersManaged": 3,
+        "settingsChanged": 8
+      },
+      "security": {
+        "passwordChangedAt": "2024-03-15T10:00:00Z",
+        "passwordExpiresAt": "2024-06-15T10:00:00Z",
+        "lastPasswordReset": "2024-03-01T09:00:00Z",
+        "sessionTimeout": 1800
+      }
+    },
+    {
+      "id": "user_002",
+      "username": "admin",
+      "email": "admin@companyname.com",
+      "password": "admin123",
+      "name": "Admin User",
+      "firstName": "Admin",
+      "lastName": "User",
+      "role": "admin",
+      "status": "active",
+      "avatar": "AU",
+      "avatarColor": "admin",
+      "phone": "+1 (555) 987-6543",
+      "department": "Content Management",
+      "position": "Content Administrator",
+      "permissions": [
+        "posts",
+        "pages",
+        "media",
+        "comments",
+        "analytics"
+      ],
+      "lastLogin": "2024-03-19T11:30:00Z",
+      "lastLoginIp": "192.168.1.101",
+      "failedLoginAttempts": 0,
+      "accountLocked": false,
+      "twoFactorEnabled": false,
+      "emailVerified": true,
+      "phoneVerified": true,
+      "createdAt": "2024-02-01T10:00:00Z",
+      "updatedAt": "2024-03-19T11:30:00Z",
+      "createdBy": "superadmin",
+      "notes": "Responsible for content management and publication",
+      "preferences": {
+        "theme": "light",
+        "language": "en",
+        "timezone": "America/Chicago",
+        "dateFormat": "YYYY-MM-DD",
+        "timeFormat": "24h",
+        "notifications": {
+          "email": true,
+          "push": false,
+          "sms": false
+        },
+        "dashboard": {
+          "defaultView": "content",
+          "refreshInterval": 600,
+          "showCharts": false
+        }
+      },
+      "activity": {
+        "totalLogins": 89,
+        "lastActivity": "2024-03-19T16:45:00Z",
+        "postsCreated": 2,
+        "postsEdited": 8,
+        "usersManaged": 0,
+        "settingsChanged": 2
+      },
+      "security": {
+        "passwordChangedAt": "2024-03-10T14:00:00Z",
+        "passwordExpiresAt": "2024-06-10T14:00:00Z",
+        "lastPasswordReset": "2024-02-15T09:00:00Z",
+        "sessionTimeout": 1800
+      }
+    },
+    {
+      "id": "user_003",
+      "username": "editor",
+      "email": "editor@companyname.com",
+      "password": "editor123",
+      "name": "Content Editor",
+      "firstName": "Content",
+      "lastName": "Editor",
+      "role": "editor",
+      "status": "active",
+      "avatar": "CE",
+      "avatarColor": "editor",
+      "phone": "+1 (555) 456-7890",
+      "department": "Editorial",
+      "position": "Senior Editor",
+      "permissions": [
+        "posts",
+        "media",
+        "comments"
+      ],
+      "lastLogin": "2024-03-18T09:15:00Z",
+      "lastLoginIp": "192.168.1.102",
+      "failedLoginAttempts": 0,
+      "accountLocked": false,
+      "twoFactorEnabled": false,
+      "emailVerified": true,
+      "phoneVerified": false,
+      "createdAt": "2024-02-15T14:30:00Z",
+      "updatedAt": "2024-03-18T09:15:00Z",
+      "createdBy": "admin",
+      "notes": "Responsible for editing and reviewing content",
+      "preferences": {
+        "theme": "dark",
+        "language": "en",
+        "timezone": "America/Los_Angeles",
+        "dateFormat": "MM/DD/YYYY",
+        "timeFormat": "12h",
+        "notifications": {
+          "email": true,
+          "push": true,
+          "sms": false
+        },
+        "dashboard": {
+          "defaultView": "posts",
+          "refreshInterval": 900,
+          "showCharts": true
+        }
+      },
+      "activity": {
+        "totalLogins": 67,
+        "lastActivity": "2024-03-18T17:30:00Z",
+        "postsCreated": 1,
+        "postsEdited": 15,
+        "usersManaged": 0,
+        "settingsChanged": 0
+      },
+      "security": {
+        "passwordChangedAt": "2024-03-05T11:00:00Z",
+        "passwordExpiresAt": "2024-06-05T11:00:00Z",
+        "lastPasswordReset": "2024-02-20T10:00:00Z",
+        "sessionTimeout": 1800
+      }
+    },
+    {
+      "id": "user_004",
+      "username": "inactive",
+      "email": "inactive@companyname.com",
+      "password": "inactive123",
+      "name": "Inactive Admin",
+      "firstName": "Inactive",
+      "lastName": "Admin",
+      "role": "admin",
+      "status": "inactive",
+      "avatar": "IA",
+      "avatarColor": "admin",
+      "phone": "+1 (555) 321-0987",
+      "department": "Temporary",
+      "position": "Temporary Administrator",
+      "permissions": [
+        "posts",
+        "media"
+      ],
+      "lastLogin": "2024-02-28T16:20:00Z",
+      "lastLoginIp": "192.168.1.103",
+      "failedLoginAttempts": 0,
+      "accountLocked": false,
+      "twoFactorEnabled": false,
+      "emailVerified": true,
+      "phoneVerified": false,
+      "createdAt": "2024-03-01T09:00:00Z",
+      "updatedAt": "2024-03-15T10:00:00Z",
+      "createdBy": "superadmin",
+      "notes": "Temporary account for project work - currently inactive",
+      "preferences": {
+        "theme": "light",
+        "language": "en",
+        "timezone": "America/New_York",
+        "dateFormat": "MM/DD/YYYY",
+        "timeFormat": "12h",
+        "notifications": {
+          "email": false,
+          "push": false,
+          "sms": false
+        },
+        "dashboard": {
+          "defaultView": "overview",
+          "refreshInterval": 300,
+          "showCharts": true
+        }
+      },
+      "activity": {
+        "totalLogins": 12,
+        "lastActivity": "2024-02-28T16:20:00Z",
+        "postsCreated": 0,
+        "postsEdited": 3,
+        "usersManaged": 0,
+        "settingsChanged": 0
+      },
+      "security": {
+        "passwordChangedAt": "2024-03-01T09:00:00Z",
+        "passwordExpiresAt": "2024-06-01T09:00:00Z",
+        "lastPasswordReset": "2024-03-01T09:00:00Z",
+        "sessionTimeout": 1800
+      }
+    },
+    {
+      "id": "user_005",
+      "username": "suspended",
+      "email": "suspended@companyname.com",
+      "password": "suspended123",
+      "name": "Suspended User",
+      "firstName": "Suspended",
+      "lastName": "User",
+      "role": "editor",
+      "status": "suspended",
+      "avatar": "SU",
+      "avatarColor": "editor",
+      "phone": "+1 (555) 654-3210",
+      "department": "Editorial",
+      "position": "Junior Editor",
+      "permissions": [
+        "posts"
+      ],
+      "lastLogin": "2024-02-15T14:00:00Z",
+      "lastLoginIp": "192.168.1.104",
+      "failedLoginAttempts": 5,
+      "accountLocked": true,
+      "twoFactorEnabled": false,
+      "emailVerified": true,
+      "phoneVerified": false,
+      "createdAt": "2024-02-10T11:00:00Z",
+      "updatedAt": "2024-03-10T15:30:00Z",
+      "createdBy": "admin",
+      "notes": "Account suspended due to policy violation",
+      "preferences": {
+        "theme": "light",
+        "language": "en",
+        "timezone": "America/New_York",
+        "dateFormat": "MM/DD/YYYY",
+        "timeFormat": "12h",
+        "notifications": {
+          "email": true,
+          "push": false,
+          "sms": false
+        },
+        "dashboard": {
+          "defaultView": "overview",
+          "refreshInterval": 300,
+          "showCharts": true
+        }
+      },
+      "activity": {
+        "totalLogins": 8,
+        "lastActivity": "2024-02-15T14:00:00Z",
+        "postsCreated": 0,
+        "postsEdited": 2,
+        "usersManaged": 0,
+        "settingsChanged": 0
+      },
+      "security": {
+        "passwordChangedAt": "2024-02-10T11:00:00Z",
+        "passwordExpiresAt": "2024-05-10T11:00:00Z",
+        "lastPasswordReset": "2024-02-10T11:00:00Z",
+        "sessionTimeout": 1800,
+        "suspensionReason": "Multiple policy violations",
+        "suspensionEndDate": "2024-04-10T00:00:00Z"
+      }
+    }
+  ],
+  "roles": [
+    {
+      "id": "role_001",
+      "name": "superadmin",
+      "displayName": "Super Administrator",
+      "description": "Full system access with all permissions",
+      "permissions": [
+        "posts",
+        "pages",
+        "media",
+        "users",
+        "settings",
+        "analytics",
+        "themes",
+        "plugins",
+        "backup",
+        "security"
+      ],
+      "userCount": 1,
+      "isDefault": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "createdBy": "system"
+    },
+    {
+      "id": "role_002",
+      "name": "admin",
+      "displayName": "Administrator",
+      "description": "Administrative access with most permissions",
+      "permissions": [
+        "posts",
+        "pages",
+        "media",
+        "comments",
+        "analytics"
+      ],
+      "userCount": 2,
+      "isDefault": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "createdBy": "system"
+    },
+    {
+      "id": "role_003",
+      "name": "editor",
+      "displayName": "Content Editor",
+      "description": "Content management and editing permissions",
+      "permissions": [
+        "posts",
+        "media",
+        "comments"
+      ],
+      "userCount": 2,
+      "isDefault": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "createdBy": "system"
+    },
+    {
+      "id": "role_004",
+      "name": "author",
+      "displayName": "Author",
+      "description": "Can create and edit own posts",
+      "permissions": [
+        "posts"
+      ],
+      "userCount": 0,
+      "isDefault": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "createdBy": "system"
+    },
+    {
+      "id": "role_005",
+      "name": "contributor",
+      "displayName": "Contributor",
+      "description": "Can create posts but cannot publish",
+      "permissions": [
+        "posts"
+      ],
+      "userCount": 0,
+      "isDefault": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "createdBy": "system"
+    }
+  ],
+  "permissions": [
+    {
+      "id": "perm_001",
+      "name": "posts",
+      "displayName": "Manage Posts",
+      "description": "Create, edit, delete, and publish posts",
+      "category": "content",
+      "roles": ["superadmin", "admin", "editor", "author", "contributor"]
+    },
+    {
+      "id": "perm_002",
+      "name": "pages",
+      "displayName": "Manage Pages",
+      "description": "Create, edit, and delete static pages",
+      "category": "content",
+      "roles": ["superadmin", "admin"]
+    },
+    {
+      "id": "perm_003",
+      "name": "media",
+      "displayName": "Manage Media",
+      "description": "Upload, edit, and delete media files",
+      "category": "content",
+      "roles": ["superadmin", "admin", "editor"]
+    },
+    {
+      "id": "perm_004",
+      "name": "comments",
+      "displayName": "Manage Comments",
+      "description": "Moderate and manage user comments",
+      "category": "content",
+      "roles": ["superadmin", "admin", "editor"]
+    },
+    {
+      "id": "perm_005",
+      "name": "users",
+      "displayName": "Manage Users",
+      "description": "Create, edit, and delete user accounts",
+      "category": "system",
+      "roles": ["superadmin"]
+    },
+    {
+      "id": "perm_006",
+      "name": "settings",
+      "displayName": "Manage Settings",
+      "description": "Configure system settings",
+      "category": "system",
+      "roles": ["superadmin"]
+    },
+    {
+      "id": "perm_007",
+      "name": "analytics",
+      "displayName": "View Analytics",
+      "description": "Access analytics and reports",
+      "category": "system",
+      "roles": ["superadmin", "admin"]
+    },
+    {
+      "id": "perm_008",
+      "name": "themes",
+      "displayName": "Manage Themes",
+      "description": "Install and configure themes",
+      "category": "system",
+      "roles": ["superadmin"]
+    },
+    {
+      "id": "perm_009",
+      "name": "plugins",
+      "displayName": "Manage Plugins",
+      "description": "Install and configure plugins",
+      "category": "system",
+      "roles": ["superadmin"]
+    },
+    {
+      "id": "perm_010",
+      "name": "backup",
+      "displayName": "Manage Backups",
+      "description": "Create and restore backups",
+      "category": "system",
+      "roles": ["superadmin"]
+    },
+    {
+      "id": "perm_011",
+      "name": "security",
+      "displayName": "Security Settings",
+      "description": "Configure security settings",
+      "category": "system",
+      "roles": ["superadmin"]
+    }
+  ],
+  "departments": [
+    {
+      "id": "dept_001",
+      "name": "Administration",
+      "description": "System administration and management",
+      "userCount": 1,
+      "head": "user_001",
+      "createdAt": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "dept_002",
+      "name": "Content Management",
+      "description": "Content creation and management",
+      "userCount": 1,
+      "head": "user_002",
+      "createdAt": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "dept_003",
+      "name": "Editorial",
+      "description": "Content editing and review",
+      "userCount": 2,
+      "head": "user_003",
+      "createdAt": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "dept_004",
+      "name": "Temporary",
+      "description": "Temporary staff and contractors",
+      "userCount": 1,
+      "head": null,
+      "createdAt": "2024-03-01T00:00:00Z"
+    }
+  ],
+  "statistics": {
+    "totalUsers": 5,
+    "activeUsers": 3,
+    "inactiveUsers": 1,
+    "suspendedUsers": 1,
+    "superAdmins": 1,
+    "admins": 2,
+    "editors": 2,
+    "totalLogins": 321,
+    "averageLoginsPerUser": 64.2,
+    "newUsersThisMonth": 0,
+    "usersByStatus": {
+      "active": 3,
+      "inactive": 1,
+      "suspended": 1
+    },
+    "usersByRole": {
+      "superadmin": 1,
+      "admin": 2,
+      "editor": 2
+    },
+    "activitySummary": {
+      "postsCreated": 8,
+      "postsEdited": 40,
+      "usersCreated": 5,
+      "settingsChanged": 10
+    }
+  },
+  "metadata": {
+    "lastUpdated": "2024-03-20T14:30:00Z",
+    "version": "1.0.0",
+    "generatedBy": "Admin System",
+    "dataType": "users"
+  }
+}
