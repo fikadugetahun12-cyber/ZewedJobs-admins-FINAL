@@ -1,0 +1,5 @@
+<!-- Instead of: -->
+<div style="margin-top: 2rem; padding: 1rem; background: white; border-radius: 5px;">
+
+<!-- Use: -->
+<div class="mt-4 p-3 bg-white rounded-md">
