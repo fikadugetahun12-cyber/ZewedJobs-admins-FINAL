@@ -1,0 +1,33 @@
+{
+  id: "unique-id",
+  username: "username",
+  email: "email@example.com",
+  password: "hashed-password",
+  name: "Full Name",
+  role: "superadmin|admin|editor",
+  status: "active|inactive|suspended",
+  avatar: "initials",
+  avatarColor: "color-class",
+  phone: "phone-number",
+  department: "department-name",
+  position: "job-title",
+  permissions: ["permission1", "permission2"],
+  lastLogin: "ISO-date",
+  createdAt: "ISO-date",
+  updatedAt: "ISO-date",
+  preferences: {
+    theme: "light|dark",
+    language: "en",
+    timezone: "timezone",
+    notifications: {
+      email: true|false,
+      push: true|false
+    }
+  },
+  activity: {
+    totalLogins: number,
+    lastActivity: "ISO-date",
+    postsCreated: number,
+    postsEdited: number
+  }
+}
