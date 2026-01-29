@@ -1,0 +1,415 @@
+{
+  "posts": [
+    {
+      "id": "post_001",
+      "title": "Welcome to Our New Website",
+      "slug": "welcome-to-our-new-website",
+      "type": "news",
+      "category": "announcements",
+      "status": "published",
+      "excerpt": "We're excited to announce the launch of our brand new website with enhanced features and better user experience.",
+      "content": "<h2>Welcome to Our New Online Home</h2><p>After months of hard work and dedication, we are thrilled to unveil our completely redesigned website. This new platform represents a significant step forward in our commitment to providing exceptional service and value to our community.</p><h3>What's New?</h3><ul><li><strong>Enhanced User Experience:</strong> Simplified navigation and intuitive design</li><li><strong>Mobile Optimization:</strong> Seamless browsing on all devices</li><li><strong>Improved Performance:</strong> Faster loading times and better reliability</li><li><strong>Rich Content:</strong> More detailed information and resources</li></ul><p>We believe this new website will better serve your needs and help us build stronger connections with our valued members and visitors.</p>",
+      "featuredImage": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "tags": ["website", "launch", "announcement", "update"],
+      "author": "admin",
+      "authorName": "Super Admin",
+      "allowComments": true,
+      "featured": true,
+      "sticky": true,
+      "views": 1245,
+      "likes": 89,
+      "comments": 12,
+      "createdAt": "2024-03-01T10:00:00Z",
+      "updatedAt": "2024-03-01T10:00:00Z",
+      "publishedAt": "2024-03-01T10:00:00Z"
+    },
+    {
+      "id": "post_002",
+      "title": "Annual General Meeting 2024",
+      "slug": "annual-general-meeting-2024",
+      "type": "event",
+      "category": "events",
+      "status": "published",
+      "excerpt": "Join us for our Annual General Meeting on March 28, 2024, where we'll review the past year and plan for the future.",
+      "content": "<h2>Annual General Meeting Details</h2><p>We cordially invite all members to our Annual General Meeting (AGM) scheduled for March 28, 2024. This important gathering provides an opportunity to review our achievements from the past year and set strategic directions for the coming year.</p><h3>Meeting Agenda</h3><ol><li>Welcome and Introduction (6:00 PM)</li><li>Approval of Previous Minutes (6:15 PM)</li><li>Annual Report Presentation (6:30 PM)</li><li>Financial Report (7:00 PM)</li><li>Election of Board Members (7:30 PM)</li><li>Open Forum and Q&A (8:00 PM)</li><li>Closing Remarks (8:30 PM)</li></ol><h3>Venue Information</h3><p><strong>Location:</strong> Main Conference Hall, 123 Business Street</p><p><strong>Date:</strong> March 28, 2024</p><p><strong>Time:</strong> 6:00 PM - 9:00 PM</p><p>Light refreshments will be served. Please RSVP by March 25, 2024, to help us with planning.</p>",
+      "featuredImage": "https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "tags": ["AGM", "meeting", "annual", "members"],
+      "author": "admin",
+      "authorName": "Super Admin",
+      "allowComments": true,
+      "featured": true,
+      "sticky": false,
+      "views": 856,
+      "likes": 45,
+      "comments": 8,
+      "createdAt": "2024-03-05T14:30:00Z",
+      "updatedAt": "2024-03-05T14:30:00Z",
+      "publishedAt": "2024-03-05T14:30:00Z",
+      "eventDate": "2024-03-28T18:00:00Z",
+      "eventLocation": "Main Conference Hall",
+      "eventRegistration": true,
+      "eventCapacity": 200,
+      "registeredAttendees": 156
+    },
+    {
+      "id": "post_003",
+      "title": "Web Developer Position Available",
+      "slug": "web-developer-position-available",
+      "type": "job",
+      "category": "careers",
+      "status": "published",
+      "excerpt": "We're looking for an experienced Web Developer to join our growing team. Competitive salary and benefits package.",
+      "content": "<h2>Web Developer Job Opportunity</h2><p>We are seeking a talented and motivated Web Developer to join our dynamic team. This is an excellent opportunity to work on exciting projects and contribute to our digital transformation initiatives.</p><h3>Responsibilities</h3><ul><li>Develop and maintain our company website and web applications</li><li>Collaborate with design team to create responsive and user-friendly interfaces</li><li>Implement new features and functionality</li><li>Optimize applications for maximum speed and scalability</li><li>Write clean, maintainable, and well-documented code</li><li>Stay updated with emerging technologies and industry trends</li></ul><h3>Requirements</h3><ul><li>Bachelor's degree in Computer Science or related field</li><li>3+ years of experience in web development</li><li>Proficient in HTML5, CSS3, JavaScript, and React</li><li>Experience with responsive design and cross-browser compatibility</li><li>Knowledge of version control systems (Git)</li><li>Strong problem-solving skills and attention to detail</li></ul><h3>What We Offer</h3><ul><li>Competitive salary based on experience</li><li>Comprehensive health benefits</li><li>Flexible working hours and remote work options</li><li>Professional development opportunities</li><li>Collaborative and supportive work environment</li></ul><p>To apply, please send your resume and portfolio to careers@companyname.com by April 15, 2024.</p>",
+      "featuredImage": "https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "tags": ["job", "career", "web development", "hiring"],
+      "author": "admin",
+      "authorName": "Super Admin",
+      "allowComments": false,
+      "featured": false,
+      "sticky": true,
+      "views": 2103,
+      "likes": 67,
+      "comments": 0,
+      "createdAt": "2024-03-10T09:15:00Z",
+      "updatedAt": "2024-03-10T09:15:00Z",
+      "publishedAt": "2024-03-10T09:15:00Z",
+      "applicationDeadline": "2024-04-15T23:59:59Z",
+      "jobType": "full-time",
+      "salaryRange": "$70,000 - $90,000",
+      "location": "Remote/New York",
+      "experienceLevel": "Mid-level"
+    },
+    {
+      "id": "post_004",
+      "title": "Community Service Day Success",
+      "slug": "community-service-day-success",
+      "type": "news",
+      "category": "community",
+      "status": "published",
+      "excerpt": "Our recent Community Service Day made a significant impact, with over 100 volunteers participating in various projects.",
+      "content": "<h2>Making a Difference Together</h2><p>Last Saturday, our organization hosted its quarterly Community Service Day, bringing together over 100 dedicated volunteers who worked tirelessly to make a positive impact in our community. The event was a tremendous success, demonstrating the power of collective action.</p><h3>Projects Completed</h3><p>Volunteers worked on four major initiatives throughout the day:</p><ol><li><strong>Park Cleanup:</strong> 40 volunteers spent the morning cleaning and beautifying Riverside Park</li><li><strong>Senior Center Renovation:</strong> Painting and minor repairs at the local senior center</li><li><strong>Food Drive:</strong> Collected and distributed over 2,000 pounds of food to families in need</li><li><strong>Educational Workshops:</strong> Free tutoring and career advice sessions for local students</li></ol><h3>Community Impact</h3><p>The day's efforts resulted in:</p><ul><li>15 bags of litter removed from public spaces</li><li>25 new trees planted in community areas</li><li>8 park benches repaired or replaced</li><li>12 rooms painted at the senior center</li><li>85 students received educational support</li></ul><p>We extend our heartfelt thanks to all volunteers and community partners who made this event possible. Special recognition goes to our sponsors who provided materials and refreshments.</p><p>Our next Community Service Day is scheduled for June 15, 2024. We look forward to seeing even more volunteers join us in making our community a better place!</p>",
+      "featuredImage": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "tags": ["community", "volunteer", "service", "impact"],
+      "author": "editor",
+      "authorName": "Content Editor",
+      "allowComments": true,
+      "featured": false,
+      "sticky": false,
+      "views": 745,
+      "likes": 56,
+      "comments": 15,
+      "createdAt": "2024-03-12T11:20:00Z",
+      "updatedAt": "2024-03-12T11:20:00Z",
+      "publishedAt": "2024-03-12T11:20:00Z"
+    },
+    {
+      "id": "post_005",
+      "title": "Website Maintenance Scheduled",
+      "slug": "website-maintenance-scheduled",
+      "type": "news",
+      "category": "updates",
+      "status": "published",
+      "excerpt": "Scheduled maintenance will be performed this weekend to improve website performance and security.",
+      "content": "<h2>Scheduled Maintenance Notice</h2><p>To ensure optimal performance and security, we will be performing scheduled maintenance on our website this weekend. During this time, the website may be temporarily unavailable or experience reduced functionality.</p><h3>Maintenance Window</h3><p><strong>Date:</strong> March 23-24, 2024</p><p><strong>Time:</strong> 2:00 AM - 6:00 AM (Eastern Time)</p><p><strong>Expected Downtime:</strong> Approximately 4 hours</p><h3>What to Expect</h3><ul><li>Temporary unavailability of the website during maintenance</li><li>Possible brief interruptions in service</li><li>Improved performance and security post-maintenance</li></ul><h3>What We're Improving</h3><p>This maintenance will include:</p><ul><li>Security updates and patches</li><li>Database optimization</li><li>Performance enhancements</li><li>Backup system improvements</li></ul><p>We apologize for any inconvenience this may cause and appreciate your understanding as we work to improve our services. The maintenance is scheduled during off-peak hours to minimize disruption.</p><p>If you experience any issues after the maintenance window, please contact our support team at support@companyname.com.</p>",
+      "featuredImage": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "tags": ["maintenance", "update", "technical", "announcement"],
+      "author": "admin",
+      "authorName": "Super Admin",
+      "allowComments": false,
+      "featured": false,
+      "sticky": true,
+      "views": 512,
+      "likes": 23,
+      "comments": 3,
+      "createdAt": "2024-03-15T16:45:00Z",
+      "updatedAt": "2024-03-15T16:45:00Z",
+      "publishedAt": "2024-03-15T16:45:00Z"
+    },
+    {
+      "id": "post_006",
+      "title": "Spring Networking Event",
+      "slug": "spring-networking-event",
+      "type": "event",
+      "category": "networking",
+      "status": "scheduled",
+      "excerpt": "Join us for our Spring Networking Social on April 5th. Connect with professionals from various industries in a relaxed setting.",
+      "content": "<h2>Spring Networking Social</h2><p>Mark your calendars for our upcoming Spring Networking Social! This event provides an excellent opportunity to connect with professionals from diverse industries, expand your network, and build meaningful relationships in a relaxed and welcoming atmosphere.</p><h3>Event Highlights</h3><ul><li>Open networking session with professionals from various sectors</li><li>Guest speaker panel on industry trends</li><li>Interactive icebreaker activities</li><li>Catered refreshments and beverages</li><li>Raffle with exciting prizes</li></ul><h3>Event Details</h3><p><strong>Date:</strong> April 5, 2024</p><p><strong>Time:</strong> 6:00 PM - 9:00 PM</p><p><strong>Venue:</strong> The Grand Ballroom, 456 Park Avenue</p><p><strong>Dress Code:</strong> Business Casual</p><h3>Who Should Attend</h3><p>This event is perfect for:</p><ul><li>Professionals looking to expand their network</li><li>Recent graduates seeking career opportunities</li><li>Business owners and entrepreneurs</li><li>Industry experts and thought leaders</li><li>Anyone interested in professional development</li></ul><p>Space is limited, so we encourage early registration to secure your spot.</p>",
+      "featuredImage": "https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "tags": ["networking", "social", "professional", "event"],
+      "author": "editor",
+      "authorName": "Content Editor",
+      "allowComments": true,
+      "featured": true,
+      "sticky": false,
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "createdAt": "2024-03-18T10:30:00Z",
+      "updatedAt": "2024-03-18T10:30:00Z",
+      "publishedAt": null,
+      "scheduledDate": "2024-04-05T10:00:00Z",
+      "eventDate": "2024-04-05T18:00:00Z",
+      "eventLocation": "The Grand Ballroom, 456 Park Avenue",
+      "eventRegistration": true,
+      "eventCapacity": 150,
+      "registeredAttendees": 87
+    },
+    {
+      "id": "post_007",
+      "title": "Digital Marketing Manager Opening",
+      "slug": "digital-marketing-manager-opening",
+      "type": "job",
+      "category": "careers",
+      "status": "published",
+      "excerpt": "Seeking an experienced Digital Marketing Manager to lead our online marketing initiatives and drive growth.",
+      "content": "<h2>Digital Marketing Manager Position</h2><p>We are hiring a Digital Marketing Manager to lead our digital marketing efforts and drive strategic growth initiatives. The ideal candidate will have a proven track record in developing and executing successful digital marketing campaigns across multiple channels.</p><h3>Key Responsibilities</h3><ul><li>Develop and implement comprehensive digital marketing strategies</li><li>Manage all digital marketing channels (SEO, SEM, social media, email, content)</li><li>Analyze campaign performance and optimize for maximum ROI</li><li>Lead and mentor a team of digital marketing specialists</li><li>Collaborate with sales and product teams to align marketing efforts</li><li>Manage digital marketing budget and report on performance metrics</li></ul><h3>Qualifications</h3><ul><li>Bachelor's degree in Marketing, Business, or related field</li><li>5+ years of experience in digital marketing</li><li>Expertise in Google Analytics, SEO tools, and marketing automation platforms</li><li>Proven experience in managing paid social and search campaigns</li><li>Strong analytical skills and data-driven mindset</li><li>Excellent leadership and communication skills</li></ul><h3>Benefits Package</h3><ul><li>Competitive salary range: $85,000 - $110,000</li><li>Comprehensive health, dental, and vision insurance</li><li>401(k) with company match</li><li>Flexible work schedule and remote options</li><li>Generous paid time off and holidays</li><li>Professional development budget</li></ul><p>If you are passionate about digital marketing and ready to make an impact, we want to hear from you!</p>",
+      "featuredImage": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "tags": ["job", "marketing", "career", "hiring"],
+      "author": "admin",
+      "authorName": "Super Admin",
+      "allowComments": false,
+      "featured": false,
+      "sticky": false,
+      "views": 1890,
+      "likes": 34,
+      "comments": 0,
+      "createdAt": "2024-03-19T14:20:00Z",
+      "updatedAt": "2024-03-19T14:20:00Z",
+      "publishedAt": "2024-03-19T14:20:00Z",
+      "applicationDeadline": "2024-04-30T23:59:59Z",
+      "jobType": "full-time",
+      "salaryRange": "$85,000 - $110,000",
+      "location": "Chicago, IL",
+      "experienceLevel": "Senior"
+    },
+    {
+      "id": "post_008",
+      "title": "Quarterly Financial Report",
+      "slug": "quarterly-financial-report",
+      "type": "news",
+      "category": "financial",
+      "status": "draft",
+      "excerpt": "Preliminary financial results for Q1 2024 show strong growth and positive performance across all departments.",
+      "content": "<h2>Q1 2024 Financial Overview</h2><p>We are pleased to present our preliminary financial results for the first quarter of 2024. The organization has demonstrated strong performance with significant growth across key metrics.</p><h3>Key Financial Highlights</h3><table><thead><tr><th>Metric</th><th>Q1 2024</th><th>Q1 2023</th><th>Growth</th></tr></thead><tbody><tr><td>Total Revenue</td><td>$2.5M</td><td>$1.8M</td><td>38.9%</td></tr><tr><td>Operating Income</td><td>$650K</td><td>$420K</td><td>54.8%</td></tr><tr><td>Net Profit</td><td>$520K</td><td>$320K</td><td>62.5%</td></tr><tr><td>Membership Growth</td><td>25%</td><td>15%</td><td>66.7%</td></tr></tbody></table><h3>Departmental Performance</h3><p>All departments have shown positive results:</p><ul><li><strong>Membership Services:</strong> 28% increase in new memberships</li><li><strong>Events Division:</strong> 45% growth in event participation</li><li><strong>Publications:</strong> 22% increase in readership</li><li><strong>Community Outreach:</strong> 35% more programs delivered</li></ul><h3>Strategic Investments</h3><p>During Q1, we made strategic investments in:</p><ol><li>Technology infrastructure upgrades</li><li>Staff training and development programs</li><li>Marketing and brand awareness initiatives</li><li>Community partnership expansions</li></ol><p>These investments are expected to drive continued growth throughout 2024.</p>",
+      "featuredImage": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "tags": ["financial", "report", "quarterly", "results"],
+      "author": "admin",
+      "authorName": "Super Admin",
+      "allowComments": false,
+      "featured": false,
+      "sticky": false,
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "createdAt": "2024-03-20T09:00:00Z",
+      "updatedAt": "2024-03-20T09:00:00Z",
+      "publishedAt": null
+    }
+  ],
+  "categories": [
+    {
+      "id": "cat_001",
+      "name": "News",
+      "slug": "news",
+      "description": "Latest news and announcements",
+      "postCount": 4,
+      "color": "#667eea"
+    },
+    {
+      "id": "cat_002",
+      "name": "Events",
+      "slug": "events",
+      "description": "Upcoming events and activities",
+      "postCount": 2,
+      "color": "#48bb78"
+    },
+    {
+      "id": "cat_003",
+      "name": "Careers",
+      "slug": "careers",
+      "description": "Job opportunities and career information",
+      "postCount": 2,
+      "color": "#ed8936"
+    },
+    {
+      "id": "cat_004",
+      "name": "Community",
+      "slug": "community",
+      "description": "Community updates and initiatives",
+      "postCount": 1,
+      "color": "#9f7aea"
+    },
+    {
+      "id": "cat_005",
+      "name": "Financial",
+      "slug": "financial",
+      "description": "Financial reports and updates",
+      "postCount": 1,
+      "color": "#4299e1"
+    },
+    {
+      "id": "cat_006",
+      "name": "Updates",
+      "slug": "updates",
+      "description": "System and service updates",
+      "postCount": 1,
+      "color": "#38b2ac"
+    }
+  ],
+  "tags": [
+    {
+      "name": "website",
+      "count": 1,
+      "color": "#667eea"
+    },
+    {
+      "name": "launch",
+      "count": 1,
+      "color": "#48bb78"
+    },
+    {
+      "name": "announcement",
+      "count": 2,
+      "color": "#ed8936"
+    },
+    {
+      "name": "update",
+      "count": 2,
+      "color": "#9f7aea"
+    },
+    {
+      "name": "AGM",
+      "count": 1,
+      "color": "#4299e1"
+    },
+    {
+      "name": "meeting",
+      "count": 1,
+      "color": "#38b2ac"
+    },
+    {
+      "name": "annual",
+      "count": 1,
+      "color": "#ecc94b"
+    },
+    {
+      "name": "members",
+      "count": 1,
+      "color": "#f56565"
+    },
+    {
+      "name": "job",
+      "count": 2,
+      "color": "#ed8936"
+    },
+    {
+      "name": "career",
+      "count": 2,
+      "color": "#48bb78"
+    },
+    {
+      "name": "web development",
+      "count": 1,
+      "color": "#667eea"
+    },
+    {
+      "name": "hiring",
+      "count": 2,
+      "color": "#9f7aea"
+    },
+    {
+      "name": "community",
+      "count": 1,
+      "color": "#4299e1"
+    },
+    {
+      "name": "volunteer",
+      "count": 1,
+      "color": "#38b2ac"
+    },
+    {
+      "name": "service",
+      "count": 1,
+      "color": "#ecc94b"
+    },
+    {
+      "name": "impact",
+      "count": 1,
+      "color": "#f56565"
+    },
+    {
+      "name": "maintenance",
+      "count": 1,
+      "color": "#a0aec0"
+    },
+    {
+      "name": "technical",
+      "count": 1,
+      "color": "#718096"
+    },
+    {
+      "name": "networking",
+      "count": 1,
+      "color": "#4c51bf"
+    },
+    {
+      "name": "social",
+      "count": 1,
+      "color": "#d69e2e"
+    },
+    {
+      "name": "professional",
+      "count": 1,
+      "color": "#38a169"
+    },
+    {
+      "name": "event",
+      "count": 2,
+      "color": "#d53f8c"
+    },
+    {
+      "name": "marketing",
+      "count": 1,
+      "color": "#ed8936"
+    },
+    {
+      "name": "financial",
+      "count": 1,
+      "color": "#48bb78"
+    },
+    {
+      "name": "report",
+      "count": 1,
+      "color": "#4299e1"
+    },
+    {
+      "name": "quarterly",
+      "count": 1,
+      "color": "#9f7aea"
+    },
+    {
+      "name": "results",
+      "count": 1,
+      "color": "#38b2ac"
+    }
+  ],
+  "analytics": {
+    "totalPosts": 8,
+    "publishedPosts": 6,
+    "draftPosts": 1,
+    "scheduledPosts": 1,
+    "totalViews": 7351,
+    "totalLikes": 314,
+    "totalComments": 38,
+    "averageViewsPerPost": 918.88,
+    "mostViewedPost": "post_003",
+    "mostCommentedPost": "post_004",
+    "mostLikedPost": "post_001"
+  },
+  "metadata": {
+    "lastUpdated": "2024-03-20T14:30:00Z",
+    "version": "1.0.0",
+    "generatedBy": "Admin System",
+    "dataType": "posts"
+  }
+}
