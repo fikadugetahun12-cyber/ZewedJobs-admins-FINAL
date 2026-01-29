@@ -1,0 +1,3 @@
+<!-- In admin/index.html, admin/dashboard.html, admin/posts/*.html, admin/users/*.html -->
+<link rel="stylesheet" href="css/admin.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
