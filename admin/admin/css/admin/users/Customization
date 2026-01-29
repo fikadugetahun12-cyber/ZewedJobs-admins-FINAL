@@ -1,0 +1,6 @@
+:root {
+    --primary-color: #667eea; /* Change to your brand color */
+    --secondary-color: #48bb78;
+    --font-family: 'Your Custom Font', sans-serif;
+    /* etc. */
+}
