@@ -1,0 +1,18 @@
+{
+    id: 'unique-id',
+    title: 'Post Title',
+    slug: 'post-title',
+    category: 'news',
+    status: 'published', // 'draft', 'scheduled'
+    excerpt: 'Brief summary',
+    content: '<p>HTML content</p>',
+    featuredImage: 'base64-image-data',
+    tags: ['tag1', 'tag2'],
+    author: 'Admin User',
+    allowComments: true,
+    featured: false,
+    sticky: false,
+    scheduledDate: '2024-03-28T09:00:00Z', // for scheduled posts
+    createdAt: '2024-03-20T10:00:00Z',
+    updatedAt: '2024-03-20T10:00:00Z'
+}
