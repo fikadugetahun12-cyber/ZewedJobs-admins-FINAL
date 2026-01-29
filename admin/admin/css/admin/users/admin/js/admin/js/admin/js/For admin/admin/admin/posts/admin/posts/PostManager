@@ -1,0 +1,17 @@
+// CRUD operations
+postManager.createPost(postData)
+postManager.updatePost(id, postData)
+postManager.deletePost(id)
+postManager.getPostById(id)
+
+// Bulk operations
+postManager.deleteMultiplePosts([id1, id2])
+postManager.bulkUpdateStatus('published')
+
+// Export/Import
+postManager.exportPosts('json')
+postManager.importPosts(file)
+
+// Search/Filter
+postManager.searchPosts('keyword')
+postManager.filterPosts({status: 'published'})
