@@ -1,0 +1,14 @@
+// Get all posts
+const allPosts = dataLoader.getPosts();
+
+// Get post by ID
+const post = dataLoader.getPostById('post_001');
+
+// Get posts by status
+const publishedPosts = dataLoader.getPostsByStatus('published');
+
+// Get posts by category
+const newsPosts = dataLoader.getPostsByCategory('news');
+
+// Search posts
+const searchResults = dataLoader.searchPosts('website', { status: 'published' });
