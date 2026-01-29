@@ -1,0 +1,5 @@
+// Check if data exists, load from JSON if not
+if (!localStorage.getItem('posts') || !localStorage.getItem('adminUsers')) {
+    // Data will be automatically loaded by DataLoader
+    console.log('Loading demo data...');
+}
