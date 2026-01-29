@@ -1,0 +1,21 @@
+// In post-manager.js
+class PostManager {
+    constructor() {
+        this.dataLoader = window.dataLoader || new DataLoader();
+        // ... rest of code
+    }
+    
+    loadPosts() {
+        return this.dataLoader.getPosts();
+    }
+    
+    // ... other methods using dataLoader
+}
+
+// In admin-auth.js
+class AdminAuth {
+    validateUser(username, password) {
+        const users = window.dataLoader.getUsers();
+        // ... validation logic
+    }
+}
