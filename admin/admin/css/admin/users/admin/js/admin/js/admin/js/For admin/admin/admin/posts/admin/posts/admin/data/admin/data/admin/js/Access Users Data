@@ -1,0 +1,14 @@
+// Get all users
+const allUsers = dataLoader.getUsers();
+
+// Get user by ID
+const user = dataLoader.getUserById('user_001');
+
+// Get users by role
+const admins = dataLoader.getUsersByRole('admin');
+
+// Get users by status
+const activeUsers = dataLoader.getUsersByStatus('active');
+
+// Search users
+const searchResults = dataLoader.searchUsers('admin', { role: 'admin' });
