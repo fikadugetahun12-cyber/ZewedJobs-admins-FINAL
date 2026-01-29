@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts - Admin</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        /* Navigation */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .nav-links a:hover {
+            background: #f7fafc;
+            color: #667eea;
+        }
+        
+        .nav-links a.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .logout-btn {
+            padding: 8px 16px;
+            background: #e53e3e;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background: #c53030;
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .page-header {
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .page-header h1 {
+            color: #2d3748;
+            font-size: 2rem;
+        }
+        
+        .create-btn {
+            padding: 12px 24px;
+            background: #48bb78;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+        
+        .create-btn:hover {
+            background: #38a169;
+        }
+        
+        /* Filters and Search */
+        .filters-container {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .search-box {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .filter-select {
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            background: white;
+            font-size: 16px;
+        }
+        
+        .filter-btn {
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .filter-btn:hover {
+            background: #5a67d8;
+        }
+        
+        .reset-btn {
+            padding: 12px 24px;
+            background: #e2e8f0;
+            color: #4a5568;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .reset-btn:hover {
+            background: #cbd5e0;
+        }
+        
+        /* Posts Table */
+        .posts-table-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .table-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .bulk-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .bulk-select {
+            padding: 8px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+        }
+        
+        .bulk-apply {
+            padding: 8px 16px;
+            background: #718096;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .bulk-apply:hover {
+            background: #4a5568;
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .table th {
+            background: #f7fafc;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: #4a5568;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        
+        .table tr:hover {
+            background: #f7fafc;
+        }
+        
+        .post-checkbox {
+            width: 40px;
+            text-align: center;
+        }
+        
+        .post-title {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+        
+        .post-meta {
+            font-size: 14px;
+            color: #718096;
+        }
+        
+        .post-author {
+            color: #667eea;
+        }
+        
+        .post-category {
+            display: inline-block;
+            padding: 2px 8px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .status-badge.published {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+        
+        .status-badge.draft {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+        
+        .status-badge.scheduled {
+            background: #e9d8fd;
+            color: #553c9a;
+        }
+        
+        .post-date {
+            font-size: 14px;
+            color: #718096;
+        }
+        
+        .post-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .action-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .edit-btn {
+            background: #4299e1;
+            color: white;
+        }
+        
+        .edit-btn:hover {
+            background: #3182ce;
+        }
+        
+        .delete-btn {
+            background: #fc8181;
+            color: white;
+        }
+        
+        .delete-btn:hover {
+            background: #f56565;
+        }
+        
+        .view-btn {
+            background: #68d391;
+            color: white;
+        }
+        
+        .view-btn:hover {
+            background: #48bb78;
+        }
+        
+        /* Table Footer */
+        .table-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .pagination {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .page-btn {
+            padding: 8px 12px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .page-btn:hover {
+            background: #f7fafc;
+        }
+        
+        .page-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .items-per-page {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .items-per-page select {
+            padding: 8px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #718096;
+        }
+        
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 1rem;
+            color: #cbd5e0;
+        }
+        
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .stat-icon.published {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+        
+        .stat-icon.draft {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+        
+        .stat-icon.total {
+            background: #e9d8fd;
+            color: #553c9a;
+        }
+        
+        .stat-content h3 {
+            color: #718096;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-content .number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .quick-btn {
+            padding: 12px 20px;
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .quick-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .filters-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-box {
+                min-width: auto;
+            }
+            
+            .table-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+            
+            .bulk-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .table-footer {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .quick-actions {
+                justify-content: center;
+            }
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            margin-bottom: 1rem;
+            color: #718096;
+        }
+        
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="../dashboard.html" class="logo">Admin Panel</a>
+        <div class="nav-links">
+            <a href="../dashboard.html">Dashboard</a>
+            <a href="list.html" class="active">Posts</a>
+            <a href="#">Pages</a>
+            <a href="#">Media</a>
+            <a href="#">Settings</a>
+        </div>
+        <button class="logout-btn" id="logoutBtn">Logout</button>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../dashboard.html">Dashboard</a> &rsaquo;
+            <span>Posts</span>
+        </div>
+        
+        <div class="page-header">
+            <h1>Posts Management</h1>
+            <a href="create.html" class="create-btn">
+                <i class="fas fa-plus"></i> Add New Post
+            </a>
+        </div>
+        
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon total">
+                    <i class="fas fa-newspaper"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Total Posts</h3>
+                    <div class="number" id="totalPosts">0</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon published">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Published</h3>
+                    <div class="number" id="publishedPosts">0</div>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon draft">
+                    <i class="fas fa-edit"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Drafts</h3>
+                    <div class="number" id="draftPosts">0</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <a href="create.html" class="quick-btn">
+                <i class="fas fa-plus"></i> New Post
+            </a>
+            <a href="#" class="quick-btn" id="exportBtn">
+                <i class="fas fa-download"></i> Export
+            </a>
+            <a href="#" class="quick-btn" id="importBtn">
+                <i class="fas fa-upload"></i> Import
+            </a>
+            <a href="#" class="quick-btn" id="trashBtn">
+                <i class="fas fa-trash"></i> Trash
+            </a>
+        </div>
+        
+        <!-- Filters -->
+        <div class="filters-container">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search posts...">
+            </div>
+            
+            <select class="filter-select" id="statusFilter">
+                <option value="">All Status</option>
+                <option value="published">Published</option>
+                <option value="draft">Draft</option>
+                <option value="scheduled">Scheduled</option>
+            </select>
+            
+            <select class="filter-select" id="categoryFilter">
+                <option value="">All Categories</option>
+                <option value="news">News</option>
+                <option value="events">Events</option>
+                <option value="announcements">Announcements</option>
+                <option value="updates">Updates</option>
+            </select>
+            
+            <select class="filter-select" id="authorFilter">
+                <option value="">All Authors</option>
+                <option value="admin">Admin User</option>
+            </select>
+            
+            <button class="filter-btn" id="applyFiltersBtn">
+                <i class="fas fa-filter"></i> Filter
+            </button>
+            
+            <button class="reset-btn" id="resetFiltersBtn">
+                <i class="fas fa-redo"></i> Reset
+            </button>
+        </div>
+        
+        <!-- Posts Table -->
+        <div class="posts-table-container">
+            <div class="table-header">
+                <div class="table-title" id="tableTitle">All Posts</div>
+                
+                <div class="bulk-actions">
+                    <select class="bulk-select" id="bulkActionSelect">
+                        <option value="">Bulk Actions</option>
+                        <option value="publish">Publish</option>
+                        <option value="draft">Move to Draft</option>
+                        <option value="delete">Delete</option>
+                    </select>
+                    
+                    <button class="bulk-apply" id="applyBulkActionBtn">Apply</button>
+                </div>
+            </div>
+            
+            <table class="table" id="postsTable">
+                <thead>
+                    <tr>
+                        <th class="post-checkbox">
+                            <input type="checkbox" id="selectAllCheckbox">
+                        </th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Categories</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="postsTableBody">
+                    <!-- Posts will be loaded here -->
+                </tbody>
+            </table>
+            
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <i class="fas fa-newspaper"></i>
+                <h3>No posts found</h3>
+                <p>Get started by creating your first post!</p>
+                <a href="create.html" class="create-btn" style="margin-top: 1rem;">
+                    <i class="fas fa-plus"></i> Create Post
+                </a>
+            </div>
+            
+            <div class="table-footer">
+                <div class="pagination" id="pagination">
+                    <!-- Pagination will be generated here -->
+                </div>
+                
+                <div class="items-per-page">
+                    <span>Show</span>
+                    <select id="itemsPerPageSelect">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                    <span>items per page</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center;">
+        <div style="background: white; border-radius: 10px; padding: 2rem; max-width: 500px; width: 90%;">
+            <h3 style="margin-bottom: 1rem; color: #2d3748;">Delete Post</h3>
+            <p style="margin-bottom: 1.5rem; color: #718096;" id="deleteModalMessage">Are you sure you want to delete this post? This action cannot be undone.</p>
+            <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+                <button id="cancelDeleteBtn" style="padding: 10px 20px; background: #e2e8f0; color: #4a5568; border: none; border-radius: 5px; cursor: pointer;">Cancel</button>
+                <button id="confirmDeleteBtn" style="padding: 10px 20px; background: #e53e3e; color: white; border: none; border-radius: 5px; cursor: pointer;">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentPage = 1;
+        let itemsPerPage = 10;
+        let currentFilter = {};
+        let postsData = [];
+        let selectedPosts = [];
+        let postToDelete = null;
+        
+        // Check if user is logged in
+        window.onload = function() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            const loginTime = localStorage.getItem('loginTime');
+            
+            // Check if 30 minutes have passed (session timeout)
+            if (!isLoggedIn || (loginTime && (new Date().getTime() - loginTime > 30 * 60 * 1000))) {
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('loginTime');
+                window.location.href = '../index.html';
+                return;
+            }
+            
+            // Initialize posts data in localStorage if not exists
+            if (!localStorage.getItem('posts')) {
+                // Create some sample posts
+                const samplePosts = [
+                    {
+                        id: '1',
+                        title: 'Welcome to Our New Website',
+                        slug: 'welcome-to-our-new-website',
+                        category: 'announcements',
+                        status: 'published',
+                        excerpt: 'We are excited to announce the launch of our new website!',
+                        content: '<p>Welcome to our new and improved website! We have worked hard to create a better experience for our visitors.</p>',
+                        featuredImage: '',
+                        tags: ['welcome', 'website', 'launch'],
+                        author: 'Admin User',
+                        allowComments: true,
+                        featured: true,
+                        sticky: false,
+                        createdAt: '2024-03-01T10:00:00Z',
+                        updatedAt: '2024-03-01T10:00:00Z'
+                    },
+                    {
+                        id: '2',
+                        title: 'Upcoming Events Schedule',
+                        slug: 'upcoming-events-schedule',
+                        category: 'events',
+                        status: 'published',
+                        excerpt: 'Check out our exciting lineup of events for the coming months.',
+                        content: '<p>We have planned some amazing events for our community. Stay tuned for more details!</p>',
+                        featuredImage: '',
+                        tags: ['events', 'schedule', 'calendar'],
+                        author: 'Admin User',
+                        allowComments: true,
+                        featured: false,
+                        sticky: false,
+                        createdAt: '2024-03-05T14:30:00Z',
+                        updatedAt: '2024-03-05T14:30:00Z'
+                    },
+                    {
+                        id: '3',
+                        title: 'Website Maintenance Notice',
+                        slug: 'website-maintenance-notice',
+                        category: 'updates',
+                        status: 'draft',
+                        excerpt: 'Scheduled maintenance this weekend.',
+                        content: '<p>Our website will undergo scheduled maintenance this weekend. We apologize for any inconvenience.</p>',
+                        featuredImage: '',
+                        tags: ['maintenance', 'update'],
+                        author: 'Admin User',
+                        allowComments: false,
+                        featured: false,
+                        sticky: false,
+                        createdAt: '2024-03-10T09:15:00Z',
+                        updatedAt: '2024-03-10T09:15:00Z'
+                    }
+                ];
+                
+                localStorage.setItem('posts', JSON.stringify(samplePosts));
+            }
+            
+            // Load posts data
+            loadPosts();
+            setupEventListeners();
+        };
+        
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('loginTime');
+            window.location.href = '../index.html';
+        });
+        
+        // Load posts from localStorage
+        function loadPosts() {
+            postsData = JSON.parse(localStorage.getItem('posts')) || [];
+            updateStats();
+            renderPostsTable();
+        }
+        
+        // Update statistics
+        function updateStats() {
+            const total = postsData.length;
+            const published = postsData.filter(post => post.status === 'published').length;
+            const draft = postsData.filter(post => post.status === 'draft').length;
+            
+            document.getElementById('totalPosts').textContent = total;
+            document.getElementById('publishedPosts').textContent = published;
+            document.getElementById('draftPosts').textContent = draft;
+        }
+        
+        // Render posts table
+        function renderPostsTable() {
+            const tableBody = document.getElementById('postsTableBody');
+            const emptyState = document.getElementById('emptyState');
+            
+            // Apply filters
+            let filteredPosts = [...postsData];
+            
+            if (currentFilter.search) {
+                const searchTerm = currentFilter.search.toLowerCase();
+                filteredPosts = filteredPosts.filter(post => 
+                    post.title.toLowerCase().includes(searchTerm) ||
+                    post.excerpt.toLowerCase().includes(searchTerm) ||
+                    post.content.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            if (currentFilter.status) {
+                filteredPosts = filteredPosts.filter(post => post.status === currentFilter.status);
+            }
+            
+            if (currentFilter.category) {
+                filteredPosts = filteredPosts.filter(post => post.category === currentFilter.category);
+            }
+            
+            if (currentFilter.author) {
+                filteredPosts = filteredPosts.filter(post => post.author === currentFilter.author);
+            }
+            
+            // Update table title
+            document.getElementById('tableTitle').textContent = 
+                `All Posts (${filteredPosts.length} items)`;
+            
+            // Check if empty
+            if (filteredPosts.length === 0) {
+                tableBody.innerHTML = '';
+                emptyState.style.display = 'block';
+                document.getElementById('pagination').innerHTML = '';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            
+            // Calculate pagination
+            const totalPages = Math.ceil(filteredPosts.length / itemsPerPage);
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const paginatedPosts = filteredPosts.slice(startIndex, endIndex);
+            
+            // Clear table
+            tableBody.innerHTML = '';
+            
+            // Add rows
+            paginatedPosts.forEach(post => {
+                const row = document.createElement('tr');
+                const isSelected = selectedPosts.includes(post.id);
+                
+                // Format date
+                const date = new Date(post.createdAt);
+                const dateString = date.toLocaleDateString();
+                
+                // Status badge
+                const statusBadge = `<span class="status-badge ${post.status}">${post.status}</span>`;
+                
+                // Category badge
+                const categoryBadge = post.category 
+                    ? `<span class="post-category">${post.category}</span>` 
+                    : '';
+                
+                row.innerHTML = `
+                    <td class="post-checkbox">
+                        <input type="checkbox" class="post-checkbox-input" value="${post.id}" ${isSelected ? 'checked' : ''}>
+                    </td>
+                    <td>
+                        <div class="post-title">${post.title}</div>
+                        <div class="post-meta">
+                            ${post.slug ? `/posts/${post.slug}` : ''}
+                        </div>
+                    </td>
+                    <td>
+                        <span class="post-author">${post.author}</span>
+                    </td>
+                    <td>
+                        ${categoryBadge}
+                    </td>
+                    <td>
+                        ${statusBadge}
+                    </td>
+                    <td>
+                        <div class="post-date">${dateString}</div>
+                    </td>
+                    <td>
+                        <div class="post-actions">
+                            <button class="action-btn edit-btn" data-id="${post.id}">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="action-btn delete-btn" data-id="${post.id}">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+            
+            // Update pagination
+            renderPagination(totalPages);
+            
+            // Update checkbox state
+            updateSelectAllCheckbox();
+        }
+        
+        // Render pagination
+        function renderPagination(totalPages) {
+            const paginationEl = document.getElementById('pagination');
+            
+            if (totalPages <= 1) {
+                paginationEl.innerHTML = '';
+                return;
+            }
+            
+            let paginationHTML = '';
+            
+            // Previous button
+            paginationHTML += `
+                <button class="page-btn ${currentPage === 1 ? 'disabled' : ''}" 
+                        id="prevPageBtn" ${currentPage === 1 ? 'disabled' : ''}>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            `;
+            
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+                    paginationHTML += `
+                        <button class="page-btn ${currentPage === i ? 'active' : ''}" 
+                                data-page="${i}">
+                            ${i}
+                        </button>
+                    `;
+                } else if (i === currentPage - 3 || i === currentPage + 3) {
+                    paginationHTML += `<span>...</span>`;
+                }
+            }
+            
+            // Next button
+            paginationHTML += `
+                <button class="page-btn ${currentPage === totalPages ? 'disabled' : ''}" 
+                        id="nextPageBtn" ${currentPage === totalPages ? 'disabled' : ''}>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            `;
+            
+            paginationEl.innerHTML = paginationHTML;
+        }
+        
+        // Setup event listeners
+        function setupEventListeners() {
+            // Search input
+            document.getElementById('searchInput').addEventListener('input', function(e) {
+                currentFilter.search = e.target.value;
+                currentPage = 1;
+                renderPostsTable();
+            });
+            
+            // Status filter
+            document.getElementById('statusFilter').addEventListener('change', function(e) {
+                currentFilter.status = e.target.value || null;
+                currentPage = 1;
+                renderPostsTable();
+            });
+            
+            // Category filter
+            document.getElementById('categoryFilter').addEventListener('change', function(e) {
+                currentFilter.category = e.target.value || null;
+                currentPage = 1;
+                renderPostsTable();
+            });
+            
+            // Author filter
+            document.getElementById('authorFilter').addEventListener('change', function(e) {
+                currentFilter.author = e.target.value || null;
+                currentPage = 1;
+                renderPostsTable();
+            });
+            
+            // Apply filters button
+            document.getElementById('applyFiltersBtn').addEventListener('click', function() {
+                // Filters are applied automatically on change
+                renderPostsTable();
+            });
+            
+            // Reset filters button
+            document.getElementById('resetFiltersBtn').addEventListener('click', function() {
+                document.getElementById('searchInput').value = '';
+                document.getElementById('statusFilter').value = '';
+                document.getElementById('categoryFilter').value = '';
+                document.getElementById('authorFilter').value = '';
+                
+                currentFilter = {};
+                currentPage = 1;
+                renderPostsTable();
+            });
+            
+            // Items per page
+            document.getElementById('itemsPerPageSelect').addEventListener('change', function(e) {
+                itemsPerPage = parseInt(e.target.value);
+                currentPage = 1;
+                renderPostsTable();
+            });
+            
+            // Select all checkbox
+            document.getElementById('selectAllCheckbox').addEventListener('change', function(e) {
+                const checkboxes = document.querySelectorAll('.post-checkbox-input');
+                const isChecked = e.target.checked;
+                
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = isChecked;
+                });
+                
+                updateSelectedPosts();
+            });
+            
+            // Bulk action select
+            document.getElementById('applyBulkActionBtn').addEventListener('click', function() {
+                const action = document.getElementById('bulkActionSelect').value;
+                
+                if (!action) {
+                    alert('Please select a bulk action');
+                    return;
+                }
+                
+                if (selectedPosts.length === 0) {
+                    alert('Please select at least one post');
+                    return;
+                }
+                
+                applyBulkAction(action);
+            });
+            
+            // Quick action buttons
+            document.getElementById('exportBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                exportPosts();
+            });
+            
+            document.getElementById('importBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                importPosts();
+            });
+            
+            document.getElementById('trashBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                showTrash();
+            });
+        }
+        
+        // Update selected posts array
+        function updateSelectedPosts() {
+            const checkboxes = document.querySelectorAll('.post-checkbox-input:checked');
+            selectedPosts = Array.from(checkboxes).map(checkbox => checkbox.value);
+            
+            // Update bulk action button text
+            if (selectedPosts.length > 0) {
+                document.getElementById('applyBulkActionBtn').textContent = `Apply (${selectedPosts.length})`;
+            } else {
+                document.getElementById('applyBulkActionBtn').textContent = 'Apply';
+            }
+        }
+        
+        // Update select all checkbox state
+        function updateSelectAllCheckbox() {
+            const checkboxes = document.querySelectorAll('.post-checkbox-input');
+            const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+            
+            if (checkboxes.length === 0) {
+                selectAllCheckbox.checked = false;
+                selectAllCheckbox.indeterminate = false;
+                return;
+            }
+            
+            const checkedCount = document.querySelectorAll('.post-checkbox-input:checked').length;
+            
+            if (checkedCount === 0) {
+                selectAllCheckbox.checked = false;
+                selectAllCheckbox.indeterminate = false;
+            } else if (checkedCount === checkboxes.length) {
+                selectAllCheckbox.checked = true;
+                selectAllCheckbox.indeterminate = false;
+            } else {
+                selectAllCheckbox.checked = false;
+                selectAllCheckbox.indeterminate = true;
+            }
+            
+            // Add event listeners to individual checkboxes
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    updateSelectedPosts();
+                    updateSelectAllCheckbox();
+                });
+            });
+            
+            // Add event listeners to action buttons
+            document.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const postId = this.getAttribute('data-id');
+                    window.location.href = `edit.html?id=${postId}`;
+                });
+            });
+            
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const postId = this.getAttribute('data-id');
+                    showDeleteModal(postId);
+                });
+            });
+            
+            // Add event listeners to pagination buttons
+            document.querySelectorAll('.page-btn[data-page]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    currentPage = parseInt(this.getAttribute('data-page'));
+                    renderPostsTable();
+                });
+            });
+            
+            document.getElementById('prevPageBtn')?.addEventListener('click', function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderPostsTable();
+                }
+            });
+            
+            document.getElementById('nextPageBtn')?.addEventListener('click', function() {
+                const totalPages = Math.ceil(postsData.length / itemsPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderPostsTable();
+                }
+            });
+        }
+        
+        // Apply bulk action
+        function applyBulkAction(action) {
+            if (selectedPosts.length === 0) return;
+            
+            const posts = JSON.parse(localStorage.getItem('posts')) || [];
+            let updatedPosts = [...posts];
+            
+            selectedPosts.forEach(postId => {
+                const postIndex = updatedPosts.findIndex(p => p.id === postId);
+                
+                if (postIndex !== -1) {
+                    if (action === 'delete') {
+                        updatedPosts.splice(postIndex, 1);
+                    } else if (action === 'publish') {
+                        updatedPosts[postIndex].status = 'published';
+                        updatedPosts[postIndex].updatedAt = new Date().toISOString();
+                    } else if (action === 'draft') {
+                        updatedPosts[postIndex].status = 'draft';
+                        updatedPosts[postIndex].updatedAt = new Date().toISOString();
+                    }
+                }
+            });
+            
+            localStorage.setItem('posts', JSON.stringify(updatedPosts));
+            
+            // Reset selection
+            selectedPosts = [];
+            document.getElementById('bulkActionSelect').value = '';
+            document.getElementById('applyBulkActionBtn').textContent = 'Apply';
+            document.getElementById('selectAllCheckbox').checked = false;
+            document.getElementById('selectAllCheckbox').indeterminate = false;
+            
+            // Reload posts
+            loadPosts();
+            
+            // Show success message
+            alert(`${selectedPosts.length} post(s) ${action}ed successfully!`);
+        }
+        
+        // Show delete confirmation modal
+        function showDeleteModal(postId) {
+            postToDelete = postId;
+            const post = postsData.find(p => p.id === postId);
+            
+            if (post) {
+                document.getElementById('deleteModalMessage').textContent = 
+                    `Are you sure you want to delete "${post.title}"? This action cannot be undone.`;
+            }
+            
+            document.getElementById('deleteModal').style.display = 'flex';
+        }
+        
+        // Hide delete modal
+        function hideDeleteModal() {
+            document.getElementById('deleteModal').style.display = 'none';
+            postToDelete = null;
+        }
+        
+        // Delete post
+        function deletePost(postId) {
+            const posts = JSON.parse(localStorage.getItem('posts')) || [];
+            const updatedPosts = posts.filter(p => p.id !== postId);
+            
+            localStorage.setItem('posts', JSON.stringify(updatedPosts));
+            loadPosts();
+            hideDeleteModal();
+        }
+        
+        // Export posts
+        function exportPosts() {
+            const posts = JSON.parse(localStorage.getItem('posts')) || [];
+            const dataStr = JSON.stringify(posts, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `posts-export-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+        
+        // Import posts
+        function importPosts() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = function(event) {
+                    try {
+                        const importedPosts = JSON.parse(event.target.result);
+                        
+                        // Validate imported data
+                        if (!Array.isArray(importedPosts)) {
+                            throw new Error('Invalid data format');
+                        }
+                        
+                        // Merge with existing posts
+                        const existingPosts = JSON.parse(localStorage.getItem('posts')) || [];
+                        const mergedPosts = [...existingPosts, ...importedPosts];
+                        
+                        // Remove duplicates based on ID
+                        const uniquePosts = mergedPosts.filter((post, index, self) =>
+                            index === self.findIndex(p => p.id === post.id)
+                        );
+                        
+                        localStorage.setItem('posts', JSON.stringify(uniquePosts));
+                        loadPosts();
+                        alert('Posts imported successfully!');
+                    } catch (error) {
+                        alert('Error importing posts: ' + error.message);
+                    }
+                };
+                
+                reader.readAsText(file);
+            };
+            
+            input.click();
+        }
+        
+        // Show trash (for future implementation)
+        function showTrash() {
+            alert('Trash functionality will be implemented in the future.');
+        }
+        
+        // Modal event listeners
+        document.getElementById('cancelDeleteBtn').addEventListener('click', hideDeleteModal);
+        document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+            if (postToDelete) {
+                deletePost(postToDelete);
+            }
+        });
+        
+        // Close modal when clicking outside
+        document.getElementById('deleteModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                hideDeleteModal();
+            }
+        });
+        
+        // Auto-save check (for future implementation)
+        function checkAutoSave() {
+            // This could check for auto-saved drafts in the future
+        }
+        
+        // Check for auto-save every minute
+        setInterval(checkAutoSave, 60000);
+    </script>
+</body>
+</html>
