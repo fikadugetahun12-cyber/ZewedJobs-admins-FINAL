@@ -1,0 +1,4 @@
+.container           /* Container with max-width */
+.grid               /* Grid container */
+.grid-cols-{1-4}    /* Grid columns */
+.gap-{1-4}          /* Grid gap */
