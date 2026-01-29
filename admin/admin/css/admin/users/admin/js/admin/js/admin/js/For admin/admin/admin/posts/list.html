@@ -1,0 +1,14 @@
+<script src="../js/admin-auth.js"></script>
+<script src="../js/post-manager.js"></script>
+<script>
+// Add protection and setup
+document.addEventListener('DOMContentLoaded', () => {
+    if (!adminAuth.isLoggedIn()) {
+        window.location.href = '../index.html';
+        return;
+    }
+    
+    // Initialize posts list functionality
+    // (Additional code for handling posts list)
+});
+</script>
