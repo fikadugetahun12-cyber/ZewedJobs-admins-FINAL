@@ -1,0 +1,11 @@
+// Data loading
+adminDashboard.loadDashboardData()
+adminDashboard.refreshDashboard()
+
+// Charts
+adminDashboard.setupCharts()
+
+// Actions
+adminDashboard.backupSite()
+adminDashboard.clearCache()
+adminDashboard.exportDashboardData()
