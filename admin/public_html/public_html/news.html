@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News - Company Name</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reuse all styles from index.html */
+        /* Only adding specific news page styles */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c3e50;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: #3498db;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 16px;
+            transition: color 0.3s;
+            padding: 5px 0;
+            position: relative;
+        }
+        
+        nav ul li a:hover {
+            color: #3498db;
+        }
+        
+        nav ul li a.active {
+            color: #3498db;
+        }
+        
+        nav ul li a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #3498db;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.9)), url('https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+        
+        .page-header h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .page-header p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        /* News Articles */
+        .news-articles {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        
+        .news-article {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .article-header {
+            padding: 40px 40px 20px;
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .article-category {
+            background: #3498db;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .article-header h2 {
+            font-size: 32px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .article-image {
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .article-content {
+            padding: 40px;
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 17px;
+            line-height: 1.8;
+            color: #5a6c7d;
+        }
+        
+        .article-content h3 {
+            font-size: 24px;
+            margin: 30px 0 15px;
+            color: #2c3e50;
+        }
+        
+        .article-content ul, .article-content ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .article-content li {
+            margin-bottom: 10px;
+            color: #5a6c7d;
+        }
+        
+        .back-to-top {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+            border: 2px solid #3498db;
+        }
+        
+        .back-to-top:hover {
+            background: transparent;
+            color: #3498db;
+        }
+        
+        .news-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #eaeaea;
+        }
+        
+        .nav-button {
+            display: inline-flex;
+            align-items: center;
+            background: #3498db;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .nav-button:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .nav-button i {
+            margin: 0 5px;
+        }
+        
+        /* Newsletter Signup */
+        .newsletter {
+            padding: 80px 0;
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+        }
+        
+        .newsletter h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            opacity: 0.8;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            font-size: 16px;
+        }
+        
+        .newsletter-form button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 0 30px;
+            border-radius: 0 50px 50px 0;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .newsletter-form button:hover {
+            background: #2980b9;
+        }
+        
+        /* Footer */
+        footer {
+            background: #1a252f;
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo span {
+            color: #3498db;
+        }
+        
+        .footer-about p {
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+        
+        .footer-links h3, .footer-contact h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h3::after, .footer-contact h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: #3498db;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links ul li a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links ul li a:hover {
+            color: #3498db;
+        }
+        
+        .contact-info {
+            list-style: none;
+        }
+        
+        .contact-info li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .contact-info i {
+            color: #3498db;
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+            }
+            
+            .logo {
+                margin-bottom: 20px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px 10px;
+            }
+            
+            .page-header h1 {
+                font-size: 36px;
+            }
+            
+            .page-header p {
+                font-size: 18px;
+            }
+            
+            .article-header, .article-content {
+                padding: 25px;
+            }
+            
+            .article-image {
+                height: 250px;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-form input {
+                border-radius: 50px;
+                margin-bottom: 10px;
+            }
+            
+            .newsletter-form button {
+                border-radius: 50px;
+                padding: 15px;
+            }
+        }
+        
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #2c3e50;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 600px) {
+            .menu-toggle {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+            }
+            
+            nav {
+                width: 100%;
+                display: none;
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 20px;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .header-container {
+                padding: 60px 0 20px;
+            }
+            
+            .article-meta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .article-date {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">Company<span>Name</span></a>
+            
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="news.html" class="active">News</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="../admin/index.html" target="_blank">Admin Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Latest News</h1>
+            <p>Stay informed with our latest updates, announcements, and stories from our community.</p>
+        </div>
+    </section>
+
+    <!-- News Articles -->
+    <section class="news-articles">
+        <div class="container">
+            <!-- Article 1 -->
+            <article class="news-article" id="news1">
+                <div class="article-header">
+                    <div class="article-meta">
+                        <div class="article-date">March 15, 2024</div>
+                        <div class="article-category">Announcement</div>
+                    </div>
+                    <h2>Annual General Meeting 2024: Key Decisions and Future Plans</h2>
+                </div>
+                
+                <div class="article-image" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');"></div>
+                
+                <div class="article-content">
+                    <p>The 2024 Annual General Meeting was held on March 14, bringing together members from across the organization to review the past year's achievements and chart the course for the future. The meeting saw record attendance with over 300 members participating both in-person and virtually.</p>
+                    
+                    <h3>Key Decisions Made</h3>
+                    <ul>
+                        <li>Approval of the 2023 Annual Report and Financial Statements</li>
+                        <li>Election of three new board members to the Executive Committee</li>
+                        <li>Approval of the 2024-2026 Strategic Plan</li>
+                        <li>Budget allocation for community outreach programs</li>
+                    </ul>
+                    
+                    <p>The board presented a comprehensive review of the organization's performance in 2023, highlighting a 25% growth in membership and successful completion of all major projects. Financial reports showed a healthy surplus, allowing for increased investment in member services and community initiatives.</p>
+                    
+                    <h3>Looking Forward</h3>
+                    <p>For 2024, the organization will focus on three key areas: digital transformation of member services, expansion of community outreach programs, and strengthening partnerships with local businesses. A new mentorship program for young professionals will launch in April, and plans for a community center renovation are underway.</p>
+                    
+                    <p>The meeting concluded with a commitment to transparency and continued engagement with all members. Quarterly town hall meetings will be instituted to ensure ongoing communication between leadership and the membership.</p>
+                    
+                    <a href="#" class="back-to-top">Back to Top</a>
+                </div>
+            </article>
+            
+            <!-- Article 2 -->
+            <article class="news-article" id="news2">
+                <div class="article-header">
+                    <div class="article-meta">
+                        <div class="article-date">March 10, 2024</div>
+                        <div class="article-category">Partnership</div>
+                    </div>
+                    <h2>New Strategic Partnership with TechForward Inc.</h2>
+                </div>
+                
+                <div class="article-image" style="background-image: url('https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');"></div>
+                
+                <div class="article-content">
+                    <p>We are thrilled to announce a new strategic partnership with TechForward Inc., a leading technology solutions provider. This partnership will bring cutting-edge digital tools and resources to our members while creating new opportunities for collaboration and innovation.</p>
+                    
+                    <h3>Benefits for Members</h3>
+                    <p>Through this partnership, members will gain access to:</p>
+                    <ol>
+                        <li>Exclusive discounts on TechForward's business software solutions</li>
+                        <li>Free access to their online learning platform with courses in digital skills</li>
+                        <li>Priority support for technology-related queries</li>
+                        <li>Invitations to joint networking events and workshops</li>
+                    </ol>
+                    
+                    <p>TechForward's CEO, Sarah Johnson, expressed enthusiasm about the collaboration: "We're excited to partner with an organization that shares our commitment to community development and professional growth. Together, we can help members leverage technology to achieve their goals."</p>
+                    
+                    <h3>Upcoming Joint Initiatives</h3>
+                    <p>The partnership will launch with two key initiatives:</p>
+                    <ul>
+                        <li><strong>Digital Skills Bootcamp:</strong> A 6-week intensive program starting in April to help members develop in-demand digital skills.</li>
+                        <li><strong>Tech Innovation Grant:</strong> Funding available for members with innovative business ideas that leverage technology.</li>
+                    </ul>
+                    
+                    <p>This partnership represents a significant step forward in our mission to provide valuable resources and opportunities to our community. We look forward to sharing more details about these initiatives in the coming weeks.</p>
+                    
+                    <a href="#" class="back-to-top">Back to Top</a>
+                </div>
+            </article>
+            
+            <!-- Article 3 -->
+            <article class="news-article" id="news3">
+                <div class="article-header">
+                    <div class="article-meta">
+                        <div class="article-date">March 5, 2024</div>
+                        <div class="article-category">Community</div>
+                    </div>
+                    <h2>Community Service Day Impacts Over 500 Local Residents</h2>
+                </div>
+                
+                <div class="article-image" style="background-image: url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');"></div>
+                
+                <div class="article-content">
+                    <p>Last Saturday, over 100 volunteers from our organization participated in our quarterly Community Service Day, making a tangible difference in the lives of more than 500 local residents. The event, now in its fifth year, has become a cornerstone of our commitment to giving back to the community.</p>
+                    
+                    <h3>Projects Completed</h3>
+                    <p>Volunteers worked on four major projects throughout the day:</p>
+                    <ul>
+                        <li><strong>Park Cleanup and Restoration:</strong> 40 volunteers spent the day cleaning up Riverside Park, planting new trees, and repairing park benches.</li>
+                        <li><strong>Senior Center Renovation:</strong> A team of skilled members painted common areas and made accessibility improvements at the local senior center.</li>
+                        <li><strong>Food Drive and Distribution:</strong> Collected and distributed over 2,000 pounds of food to families in need through our partnership with the local food bank.</li>
+                        <li><strong>Tutoring Sessions:</strong> Professional members offered free tutoring and career advice to high school students at the community center.</li>
+                    </ul>
+                    
+                    <p>Local resident Maria Gonzalez shared her appreciation: "The improvements to our park mean so much to our neighborhood. Our children now have a safe, beautiful place to play. Thank you to all the volunteers!"</p>
+                    
+                    <h3>Measuring Impact</h3>
+                    <p>The day's accomplishments included:</p>
+                    <ul>
+                        <li>15 bags of litter removed from public spaces</li>
+                        <li>25 new trees planted</li>
+                        <li>8 park benches repaired or replaced</li>
+                        <li>12 rooms painted at the senior center</li>
+                        <li>2,150 pounds of food distributed</li>
+                        <li>85 students received tutoring or career advice</li>
+                    </ul>
+                    
+                    <p>The success of this event highlights the power of collective action and our members' commitment to community service. Planning is already underway for our next Community Service Day in June.</p>
+                    
+                    <a href="#" class="back-to-top">Back to Top</a>
+                </div>
+            </article>
+            
+            <!-- News Navigation -->
+            <div class="news-navigation">
+                <a href="index.html" class="nav-button"><i class="fas fa-arrow-left"></i> Back to Home</a>
+                <a href="events.html" class="nav-button">View Events <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Signup -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Stay Updated</h2>
+            <p>Subscribe to our newsletter to receive the latest news and updates directly in your inbox.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">Company<span>Name</span></div>
+                    <p>We are dedicated to serving our community with valuable resources, events, and opportunities for growth and connection.</p>
+                    <div class="social-links">
+                        <a href="#" style="color: white; margin-right: 15px; font-size: 20px;"><i class="fab fa-facebook"></i></a>
+                        <a href="#" style="color: white; margin-right: 15px; font-size: 20px;"><i class="fab fa-twitter"></i></a>
+                        <a href="#" style="color: white; margin-right: 15px; font-size: 20px;"><i class="fab fa-instagram"></i></a>
+                        <a href="#" style="color: white; font-size: 20px;"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="news.html">News</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="../admin/index.html" target="_blank">Admin Login</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Main Street, City, State 12345</li>
+                        <li><i class="fas fa-phone"></i> (123) 456-7890</li>
+                        <li><i class="fas fa-envelope"></i> info@companyname.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2024 Company Name. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const mainNav = document.getElementById('mainNav');
+        
+        menuToggle.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            menuToggle.innerHTML = mainNav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking on a link
+        const navLinks = document.querySelectorAll('nav ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 600) {
+                    mainNav.classList.remove('active');
+                    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        });
+        
+        // Newsletter form submission
+        const newsletterForm = document.querySelector('.newsletter-form');
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            alert(`Thank you for subscribing with: ${email}`);
+            this.reset();
+        });
+    </script>
+</body>
+</html>
