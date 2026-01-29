@@ -1,0 +1,23 @@
+.card               /* Card component */
+.card-header        /* Card header */
+.card-body          /* Card body */
+.card-footer        /* Card footer */
+
+.btn                /* Button base */
+.btn-primary        /* Primary button */
+.btn-secondary      /* Secondary button */
+.btn-success        /* Success button */
+.btn-danger         /* Danger button */
+.btn-outline        /* Outline button */
+
+.alert              /* Alert component */
+.alert-success      /* Success alert */
+.alert-danger       /* Danger alert */
+.alert-warning      /* Warning alert */
+.alert-info         /* Info alert */
+
+.badge              /* Badge component */
+.badge-primary      /* Primary badge */
+.badge-secondary    /* Secondary badge */
+.badge-success      /* Success badge */
+.badge-danger       /* Danger badge */
