@@ -1,0 +1,9 @@
+.text-center        /* Center align text */
+.text-right         /* Right align text */
+.text-left          /* Left align text */
+.text-primary       /* Primary color text */
+.text-secondary     /* Secondary color text */
+.text-success       /* Success color text */
+.text-danger        /* Danger color text */
+.text-muted         /* Muted/gray text */
+.font-weight-bold   /* Bold text */
