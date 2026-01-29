@@ -1,0 +1,22 @@
+// Export all data
+dataLoader.exportData('all');
+
+// Export only posts
+dataLoader.exportData('posts');
+
+// Export only users
+dataLoader.exportData('users');
+
+// Import data from file
+const fileInput = document.getElementById('importFile');
+fileInput.addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+        const result = await dataLoader.importData(file);
+        if (result.success) {
+            alert('Data imported successfully!');
+        } else {
+            alert('Import failed: ' + result.message);
+        }
+    }
+});
