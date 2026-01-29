@@ -1,0 +1,9 @@
+<div class="stat-card">
+    <div class="stat-icon bg-info text-white">
+        <i class="fas fa-newspaper"></i>
+    </div>
+    <div class="stat-content">
+        <h3>Total Posts</h3>
+        <div class="number">24</div>
+    </div>
+</div>
