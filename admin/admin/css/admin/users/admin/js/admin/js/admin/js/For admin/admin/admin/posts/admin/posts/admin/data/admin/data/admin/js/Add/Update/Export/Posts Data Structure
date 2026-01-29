@@ -1,0 +1,31 @@
+{
+  id: "unique-id",
+  title: "Post Title",
+  slug: "post-title",
+  type: "news|event|job",
+  category: "category-name",
+  status: "published|draft|scheduled",
+  excerpt: "Brief summary",
+  content: "HTML content",
+  featuredImage: "image-url",
+  tags: ["tag1", "tag2"],
+  author: "author-name",
+  allowComments: true|false,
+  featured: true|false,
+  sticky: true|false,
+  views: number,
+  likes: number,
+  comments: number,
+  createdAt: "ISO-date",
+  updatedAt: "ISO-date",
+  publishedAt: "ISO-date",
+  // Event-specific fields
+  eventDate: "ISO-date",
+  eventLocation: "location",
+  eventRegistration: true|false,
+  // Job-specific fields
+  applicationDeadline: "ISO-date",
+  jobType: "full-time|part-time|contract",
+  salaryRange: "$70,000 - $90,000",
+  location: "location"
+}
