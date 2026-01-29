@@ -1,0 +1,8 @@
+// Get all activity logs
+const allLogs = dataLoader.getActivityLogs();
+
+// Get recent activity (last 10 logs)
+const recentActivity = dataLoader.getActivityLogs(10);
+
+// Add new activity log
+dataLoader.addActivityLog('Login', 'User logged in successfully', 'John Doe');
