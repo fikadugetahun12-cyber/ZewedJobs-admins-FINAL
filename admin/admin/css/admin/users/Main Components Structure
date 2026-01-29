@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Title - Admin</title>
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="../dashboard.html" class="logo">Admin Panel</a>
+        <div class="nav-links">
+            <a href="../dashboard.html">Dashboard</a>
+            <a href="../posts/list.html">Posts</a>
+            <a href="../users/admins.html">Users</a>
+            <a href="#">Settings</a>
+        </div>
+        <button class="logout-btn" id="logoutBtn">Logout</button>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../dashboard.html">Dashboard</a> &rsaquo;
+            <span>Current Page</span>
+        </div>
+        
+        <div class="page-header mt-4">
+            <h1>Page Title</h1>
+            <p class="text-muted">Page description</p>
+        </div>
+        
+        <!-- Your content here -->
+    </div>
+
+    <script>
+        // Your JavaScript code here
+    </script>
+</body>
+</html>
