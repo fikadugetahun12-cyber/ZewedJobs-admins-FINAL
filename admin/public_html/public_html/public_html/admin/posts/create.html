@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Post - Admin</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        /* Navigation */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .nav-links a:hover {
+            background: #f7fafc;
+            color: #667eea;
+        }
+        
+        .nav-links a.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .logout-btn {
+            padding: 8px 16px;
+            background: #e53e3e;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background: #c53030;
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .page-header {
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .page-header h1 {
+            color: #2d3748;
+            font-size: 2rem;
+        }
+        
+        .back-btn {
+            padding: 10px 20px;
+            background: #718096;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-btn:hover {
+            background: #4a5568;
+        }
+        
+        /* Create Post Form */
+        .create-post-form {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2d3748;
+            font-weight: 600;
+        }
+        
+        .form-group input[type="text"],
+        .form-group input[type="date"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .editor-toolbar {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-bottom: none;
+            border-radius: 5px 5px 0 0;
+            padding: 10px;
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        
+        .editor-btn {
+            padding: 5px 10px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .editor-btn:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .content-editor {
+            min-height: 300px;
+            border: 1px solid #e2e8f0;
+            border-radius: 0 0 5px 5px;
+            padding: 1rem;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        .content-editor:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .content-editor ul,
+        .content-editor ol {
+            margin-left: 2rem;
+        }
+        
+        .content-editor h1,
+        .content-editor h2,
+        .content-editor h3 {
+            margin: 1rem 0 0.5rem;
+        }
+        
+        .content-editor p {
+            margin-bottom: 1rem;
+        }
+        
+        .image-upload {
+            border: 2px dashed #cbd5e0;
+            border-radius: 5px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        
+        .image-upload:hover {
+            border-color: #667eea;
+        }
+        
+        .image-upload i {
+            font-size: 48px;
+            color: #a0aec0;
+            margin-bottom: 1rem;
+        }
+        
+        .image-upload p {
+            color: #718096;
+        }
+        
+        .image-preview {
+            display: none;
+            margin-top: 1rem;
+        }
+        
+        .image-preview img {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 5px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 2rem;
+        }
+        
+        .save-btn {
+            padding: 12px 30px;
+            background: #48bb78;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .save-btn:hover {
+            background: #38a169;
+        }
+        
+        .draft-btn {
+            padding: 12px 30px;
+            background: #718096;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .draft-btn:hover {
+            background: #4a5568;
+        }
+        
+        .cancel-btn {
+            padding: 12px 30px;
+            background: #e2e8f0;
+            color: #4a5568;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .cancel-btn:hover {
+            background: #cbd5e0;
+        }
+        
+        /* Status Messages */
+        .status-message {
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .status-message.success {
+            background: #c6f6d5;
+            color: #22543d;
+            border: 1px solid #9ae6b4;
+            display: block;
+        }
+        
+        .status-message.error {
+            background: #fed7d7;
+            color: #742a2a;
+            border: 1px solid #fc8181;
+            display: block;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .create-post-form {
+                padding: 1rem;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .form-actions button {
+                width: 100%;
+            }
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            margin-bottom: 1rem;
+            color: #718096;
+        }
+        
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="../dashboard.html" class="logo">Admin Panel</a>
+        <div class="nav-links">
+            <a href="../dashboard.html">Dashboard</a>
+            <a href="list.html" class="active">Posts</a>
+            <a href="#">Pages</a>
+            <a href="#">Media</a>
+            <a href="#">Settings</a>
+        </div>
+        <button class="logout-btn" id="logoutBtn">Logout</button>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../dashboard.html">Dashboard</a> &rsaquo;
+            <a href="list.html">Posts</a> &rsaquo;
+            <span>Create New Post</span>
+        </div>
+        
+        <div class="page-header">
+            <h1>Create New Post</h1>
+            <a href="list.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Posts
+            </a>
+        </div>
+        
+        <div id="statusMessage" class="status-message"></div>
+        
+        <form class="create-post-form" id="createPostForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="postTitle">Post Title *</label>
+                    <input type="text" id="postTitle" name="postTitle" required placeholder="Enter post title">
+                </div>
+                
+                <div class="form-group">
+                    <label for="postSlug">URL Slug</label>
+                    <input type="text" id="postSlug" name="postSlug" placeholder="auto-generated-from-title">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="postCategory">Category</label>
+                    <select id="postCategory" name="postCategory">
+                        <option value="">Uncategorized</option>
+                        <option value="news">News</option>
+                        <option value="events">Events</option>
+                        <option value="announcements">Announcements</option>
+                        <option value="updates">Updates</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="postStatus">Status</label>
+                    <select id="postStatus" name="postStatus">
+                        <option value="draft">Draft</option>
+                        <option value="published">Published</option>
+                        <option value="scheduled">Scheduled</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group" id="scheduleDateGroup" style="display: none;">
+                <label for="postScheduleDate">Schedule Date & Time</label>
+                <input type="datetime-local" id="postScheduleDate" name="postScheduleDate">
+            </div>
+            
+            <div class="form-group">
+                <label for="postExcerpt">Excerpt</label>
+                <textarea id="postExcerpt" name="postExcerpt" rows="3" placeholder="Brief summary of the post (optional)"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="postContent">Content *</label>
+                <div class="editor-toolbar">
+                    <button type="button" class="editor-btn" data-command="bold"><i class="fas fa-bold"></i></button>
+                    <button type="button" class="editor-btn" data-command="italic"><i class="fas fa-italic"></i></button>
+                    <button type="button" class="editor-btn" data-command="underline"><i class="fas fa-underline"></i></button>
+                    <button type="button" class="editor-btn" data-command="insertUnorderedList"><i class="fas fa-list-ul"></i></button>
+                    <button type="button" class="editor-btn" data-command="insertOrderedList"><i class="fas fa-list-ol"></i></button>
+                    <button type="button" class="editor-btn" data-command="createLink"><i class="fas fa-link"></i></button>
+                    <button type="button" class="editor-btn" data-command="insertImage"><i class="fas fa-image"></i></button>
+                    <button type="button" class="editor-btn" data-command="formatBlock" data-value="h2">H2</button>
+                    <button type="button" class="editor-btn" data-command="formatBlock" data-value="h3">H3</button>
+                </div>
+                <div class="content-editor" id="postContent" contenteditable="true"></div>
+                <textarea id="postContentHidden" name="postContent" style="display: none;"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="postFeaturedImage">Featured Image</label>
+                <div class="image-upload" id="imageUpload">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Click to upload or drag and drop</p>
+                    <p>Recommended size: 1200 x 630 pixels</p>
+                </div>
+                <input type="file" id="postFeaturedImage" name="postFeaturedImage" accept="image/*" style="display: none;">
+                <div class="image-preview" id="imagePreview">
+                    <img id="previewImage" src="" alt="Preview">
+                    <button type="button" id="removeImage" style="margin-top: 10px; padding: 5px 10px; background: #e53e3e; color: white; border: none; border-radius: 3px; cursor: pointer;">Remove Image</button>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="postTags">Tags</label>
+                    <input type="text" id="postTags" name="postTags" placeholder="tag1, tag2, tag3">
+                </div>
+                
+                <div class="form-group">
+                    <label for="postAuthor">Author</label>
+                    <input type="text" id="postAuthor" name="postAuthor" value="Admin User" readonly>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="postComments" name="postComments" checked>
+                    <label for="postComments">Allow comments</label>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="postFeatured" name="postFeatured">
+                    <label for="postFeatured">Mark as featured post</label>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="postSticky" name="postSticky">
+                    <label for="postSticky">Stick to top of blog</label>
+                </div>
+            </div>
+            
+            <div class="form-actions">
+                <button type="button" class="cancel-btn" onclick="window.location.href='list.html'">Cancel</button>
+                <button type="button" class="draft-btn" id="saveDraftBtn">Save as Draft</button>
+                <button type="submit" class="save-btn" id="publishBtn">Publish</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Check if user is logged in
+        window.onload = function() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            const loginTime = localStorage.getItem('loginTime');
+            
+            // Check if 30 minutes have passed (session timeout)
+            if (!isLoggedIn || (loginTime && (new Date().getTime() - loginTime > 30 * 60 * 1000))) {
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('loginTime');
+                window.location.href = '../index.html';
+            }
+            
+            // Initialize post data in localStorage if not exists
+            if (!localStorage.getItem('posts')) {
+                localStorage.setItem('posts', JSON.stringify([]));
+            }
+        };
+        
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('loginTime');
+            window.location.href = '../index.html';
+        });
+        
+        // Auto-generate slug from title
+        document.getElementById('postTitle').addEventListener('input', function() {
+            const title = this.value;
+            const slug = title.toLowerCase()
+                .replace(/[^\w\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/--+/g, '-')
+                .trim();
+            document.getElementById('postSlug').value = slug;
+        });
+        
+        // Show/hide schedule date based on status
+        document.getElementById('postStatus').addEventListener('change', function() {
+            const scheduleGroup = document.getElementById('scheduleDateGroup');
+            if (this.value === 'scheduled') {
+                scheduleGroup.style.display = 'block';
+                // Set default schedule time to tomorrow
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                tomorrow.setHours(9, 0, 0, 0);
+                document.getElementById('postScheduleDate').value = tomorrow.toISOString().slice(0, 16);
+            } else {
+                scheduleGroup.style.display = 'none';
+            }
+        });
+        
+        // Image upload functionality
+        document.getElementById('imageUpload').addEventListener('click', function() {
+            document.getElementById('postFeaturedImage').click();
+        });
+        
+        document.getElementById('postFeaturedImage').addEventListener('change', function(e) {
+            if (e.target.files && e.target.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(event) {
+                    document.getElementById('previewImage').src = event.target.result;
+                    document.getElementById('imagePreview').style.display = 'block';
+                    document.getElementById('imageUpload').style.display = 'none';
+                }
+                
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+        
+        document.getElementById('removeImage').addEventListener('click', function() {
+            document.getElementById('previewImage').src = '';
+            document.getElementById('imagePreview').style.display = 'none';
+            document.getElementById('imageUpload').style.display = 'block';
+            document.getElementById('postFeaturedImage').value = '';
+        });
+        
+        // Rich text editor functionality
+        const editorBtns = document.querySelectorAll('.editor-btn');
+        const contentEditor = document.getElementById('postContent');
+        
+        editorBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const command = this.getAttribute('data-command');
+                const value = this.getAttribute('data-value');
+                
+                if (command === 'createLink') {
+                    const url = prompt('Enter the URL:');
+                    if (url) {
+                        document.execCommand('createLink', false, url);
+                    }
+                } else if (command === 'insertImage') {
+                    const url = prompt('Enter the image URL:');
+                    if (url) {
+                        document.execCommand('insertImage', false, url);
+                    }
+                } else if (value) {
+                    document.execCommand(command, false, value);
+                } else {
+                    document.execCommand(command, false, null);
+                }
+                
+                contentEditor.focus();
+            });
+        });
+        
+        // Update hidden textarea with HTML content
+        contentEditor.addEventListener('input', function() {
+            document.getElementById('postContentHidden').value = this.innerHTML;
+        });
+        
+        // Show status message
+        function showStatus(message, type) {
+            const statusEl = document.getElementById('statusMessage');
+            statusEl.textContent = message;
+            statusEl.className = `status-message ${type}`;
+            statusEl.style.display = 'block';
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                statusEl.style.display = 'none';
+            }, 5000);
+        }
+        
+        // Generate unique ID
+        function generateId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2);
+        }
+        
+        // Form submission
+        document.getElementById('createPostForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            savePost('published');
+        });
+        
+        document.getElementById('saveDraftBtn').addEventListener('click', function() {
+            savePost('draft');
+        });
+        
+        function savePost(status) {
+            const title = document.getElementById('postTitle').value.trim();
+            const content = document.getElementById('postContent').innerHTML.trim();
+            
+            if (!title) {
+                showStatus('Please enter a post title', 'error');
+                return;
+            }
+            
+            if (!content) {
+                showStatus('Please enter post content', 'error');
+                return;
+            }
+            
+            const post = {
+                id: generateId(),
+                title: title,
+                slug: document.getElementById('postSlug').value.trim() || title.toLowerCase().replace(/\s+/g, '-'),
+                category: document.getElementById('postCategory').value,
+                status: status,
+                excerpt: document.getElementById('postExcerpt').value,
+                content: content,
+                featuredImage: document.getElementById('previewImage').src,
+                tags: document.getElementById('postTags').value.split(',').map(tag => tag.trim()).filter(tag => tag),
+                author: document.getElementById('postAuthor').value,
+                allowComments: document.getElementById('postComments').checked,
+                featured: document.getElementById('postFeatured').checked,
+                sticky: document.getElementById('postSticky').checked,
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            };
+            
+            if (status === 'scheduled') {
+                post.scheduledDate = document.getElementById('postScheduleDate').value;
+                post.status = 'scheduled';
+            }
+            
+            // Save to localStorage
+            const posts = JSON.parse(localStorage.getItem('posts')) || [];
+            posts.push(post);
+            localStorage.setItem('posts', JSON.stringify(posts));
+            
+            // Show success message
+            const message = status === 'published' 
+                ? 'Post published successfully!' 
+                : 'Post saved as draft successfully!';
+            showStatus(message, 'success');
+            
+            // Clear form
+            document.getElementById('createPostForm').reset();
+            document.getElementById('postContent').innerHTML = '';
+            document.getElementById('postContentHidden').value = '';
+            document.getElementById('imagePreview').style.display = 'none';
+            document.getElementById('imageUpload').style.display = 'block';
+            
+            // Redirect to list page after 2 seconds
+            setTimeout(() => {
+                window.location.href = 'list.html';
+            }, 2000);
+        }
+        
+        // Auto-save draft every 30 seconds
+        let autoSaveInterval;
+        function startAutoSave() {
+            autoSaveInterval = setInterval(() => {
+                const title = document.getElementById('postTitle').value.trim();
+                const content = document.getElementById('postContent').innerHTML.trim();
+                
+                if (title || content) {
+                    console.log('Auto-saving draft...');
+                    // In a real app, this would save to localStorage or send to server
+                }
+            }, 30000);
+        }
+        
+        function stopAutoSave() {
+            clearInterval(autoSaveInterval);
+        }
+        
+        // Start auto-save when page loads
+        startAutoSave();
+        
+        // Stop auto-save when leaving page
+        window.addEventListener('beforeunload', stopAutoSave);
+    </script>
+</body>
+</html>
